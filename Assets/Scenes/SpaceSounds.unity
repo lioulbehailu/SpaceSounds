@@ -239,11 +239,11 @@ GameObject:
   m_Component:
   - component: {fileID: 578603968}
   - component: {fileID: 578603967}
-  - component: {fileID: 578603966}
   - component: {fileID: 578603969}
   - component: {fileID: 578603970}
   - component: {fileID: 578603971}
   - component: {fileID: 578603972}
+  - component: {fileID: 578603973}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -251,14 +251,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &578603966
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 578603965}
-  m_Enabled: 1
 --- !u!20 &578603967
 Camera:
   m_ObjectHideFlags: 0
@@ -414,6 +406,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 10
+--- !u!114 &578603973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578603965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!4 &791596494 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
@@ -494,6 +500,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -6689036041284674117, guid: 6e5f99365fdc42645b821b0c0da732d9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 857877219}
+    - targetCorrespondingSourceObject: {fileID: -6689036041284674117, guid: 6e5f99365fdc42645b821b0c0da732d9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 857877220}
   m_SourcePrefab: {fileID: -5645937942226959685, guid: 6e5f99365fdc42645b821b0c0da732d9, type: 3}
 --- !u!4 &857877217 stripped
 Transform:
@@ -519,6 +528,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orbitPath: {fileID: 216597790}
   timeOffset: 0
+--- !u!114 &857877220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857877218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34bac2a9ac9d5ad42bca886b42e66e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPlanet: {fileID: 1254922868}
+  fmodParameter: lpFilterAmt
+  activeDistance: 11.7
 --- !u!1 &1153274481
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +765,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254922863}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 8017636466510631684, guid: c22fdcc5568bb1640be1a73c9ec78972, type: 2}
   m_audioClip: {fileID: 0}
@@ -831,6 +855,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1254922868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254922863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -77588829
+      Data2: 1224710080
+      Data3: 888730542
+      Data4: 1267494462
+    Path: event:/Planet 1
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1308902492
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,6 +997,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1526814149960808, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1254922866}
+    - targetCorrespondingSourceObject: {fileID: 1526814149960808, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1254922868}
   m_SourcePrefab: {fileID: 100100000, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
 --- !u!1 &2011055848 stripped
 GameObject:

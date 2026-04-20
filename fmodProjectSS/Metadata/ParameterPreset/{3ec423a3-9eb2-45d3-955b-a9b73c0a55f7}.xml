@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{3ec423a3-9eb2-45d3-955b-a9b73c0a55f7}">
+		<property name="name">
+			<value>lpFilterAmt</value>
+		</property>
+		<relationship name="folder">
+			<destination>{205d2fce-eb73-47b7-93e3-8aceb8cf804c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{325fa412-2609-42b2-be73-e7b290745c91}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{325fa412-2609-42b2-be73-e7b290745c91}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

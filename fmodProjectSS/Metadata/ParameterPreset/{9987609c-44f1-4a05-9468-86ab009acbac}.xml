@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{9987609c-44f1-4a05-9468-86ab009acbac}">
+		<property name="name">
+			<value>flangerAmt</value>
+		</property>
+		<relationship name="folder">
+			<destination>{205d2fce-eb73-47b7-93e3-8aceb8cf804c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{efae33ab-de2d-4405-9aaa-983b71e24816}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{efae33ab-de2d-4405-9aaa-983b71e24816}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
