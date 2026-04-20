@@ -18,8 +18,8 @@ public class SatelliteTool : MonoBehaviour
         // 2. Calculate distance
         float dist = Vector3.Distance(transform.position, targetPlanet.transform.position);
 
-        // 3. Map distance to 0-1 (1.0 = close/clear, 0.0 = far/muffled)
-        float intensity = 1.0f - Mathf.Clamp01(dist / activeDistance);
+// 0.0 when close (Muffled), 1.0 when far (Clear)
+float intensity = Mathf.Clamp01(dist / activeDistance);
 
         // 4. Send the value to the specific planet instance
         targetPlanet.EventInstance.setParameterByName(fmodParameter, intensity);

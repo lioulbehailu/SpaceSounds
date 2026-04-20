@@ -29,6 +29,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 14000
+--- !u!114 &-5415426294973745356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: fmodProjectSS/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 639123026121470320
+  FileSizes:
+  - Name: Desktop
+    Value: 506464
+  Exists: 1
 --- !u!114 &-4200248979135206989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,6 +73,103 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-2673994196326003589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Planet 1/lpFilterAmt
+  m_EditorClassIdentifier: 
+  Name: lpFilterAmt
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3147055085
+    data2: 1151734881
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-2654236094649888062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Planet 1
+  m_EditorClassIdentifier: 
+  Path: event:/Planet 1
+  Guid:
+    Data1: -77588829
+    Data2: 1224710080
+    Data3: 888730542
+    Data4: 1267494462
+  Banks:
+  - {fileID: -5415426294973745356}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -1896733412328339502}
+  - {fileID: -2673994196326003589}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 14000
+--- !u!114 &-2225606661793251110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: fmodProjectSS/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 639123026121480325
+  FileSizes:
+  - Name: Desktop
+    Value: 876
+  Exists: 1
+--- !u!114 &-1896733412328339502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Planet 1/flangerAmt
+  m_EditorClassIdentifier: 
+  Name: flangerAmt
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1132484432
+    data2: 2993650787
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,17 +183,17 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 223641371433923606}
-  - {fileID: 7729823202420208896}
+  - {fileID: -2225606661793251110}
+  - {fileID: -5415426294973745356}
   EditorEvents:
-  - {fileID: -8954814515212149426}
+  - {fileID: -2654236094649888062}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 7729823202420208896}
+  - {fileID: -5415426294973745356}
   StringsBanks:
-  - {fileID: 223641371433923606}
+  - {fileID: -2225606661793251110}
   cacheVersion: 131859
-  cacheTime: 639122984092057262
+  cacheTime: 639123026121480325
   SerializableEventsDict:
   - key: event:/Planet 1
     index: 0
@@ -95,7 +212,7 @@ MonoBehaviour:
   Path: fmodProjectSS/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639122984092057262
+  lastModified: 639123012934951842
   FileSizes:
   - Name: 
     Value: 876
@@ -139,6 +256,6 @@ MonoBehaviour:
   Path: fmodProjectSS/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639122984092057262
+  lastModified: 639123012934951842
   FileSizes: []
   Exists: 1
