@@ -35,7 +35,7 @@
 *.DotSettings.user
 
 # Visual Studio cache directory
-.vscode/
+.vs/
 
 # Gradle cache directory
 .gradle/
@@ -105,6 +105,7 @@ InitTestScene*.unity*
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
+# --- FMOD SPECIFIC ---
 # Never ignore DLLs in the FMOD subfolder.
 !/[Aa]ssets/Plugins/FMOD/**/lib/*
 
