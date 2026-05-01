@@ -788,6 +788,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -6689036041284674117, guid: 6e5f99365fdc42645b821b0c0da732d9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 857877223}
+    - targetCorrespondingSourceObject: {fileID: -6689036041284674117, guid: 6e5f99365fdc42645b821b0c0da732d9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 857877224}
   m_SourcePrefab: {fileID: -5645937942226959685, guid: 6e5f99365fdc42645b821b0c0da732d9, type: 3}
 --- !u!4 &857877217 stripped
 Transform:
@@ -882,7 +885,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857877218}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34bac2a9ac9d5ad42bca886b42e66e35, type: 3}
   m_Name: 
@@ -890,6 +893,20 @@ MonoBehaviour:
   targetPlanet: {fileID: 791596500}
   fmodParameter: lpFilterAmt
   activeDistance: 10
+--- !u!114 &857877224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857877218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45cbe5ca2ce003549af1d7ac0be77228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameterName: lpFilterAmt
+  transitionSpeed: 2
 --- !u!1 &1087131553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,12 +1074,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ad84eb7ab31f644a243d881d0f808f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMixer: {fileID: 24100000, guid: c22fdcc5568bb1640be1a73c9ec78972, type: 2}
-  parameterName: HighpassCutoff
-  type: 0
-  offValue: 10
-  onValue: 1400
-  transitionSpeed: 5
 --- !u!1 &2130973171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,12 +1103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ad84eb7ab31f644a243d881d0f808f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMixer: {fileID: 24100000, guid: c22fdcc5568bb1640be1a73c9ec78972, type: 2}
-  parameterName: EchoWetMix
-  type: 1
-  offValue: 0
-  onValue: 0.8
-  transitionSpeed: 0.001
 --- !u!4 &2130973173
 Transform:
   m_ObjectHideFlags: 0
