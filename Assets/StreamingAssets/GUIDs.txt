@@ -1,0 +1,9 @@
+{0f4ba52c-0c29-499d-9480-af0add5dc341} bank:/Master
+{975685f8-7d52-05df-12c9-25f42caec5d9} bank:/Master.strings
+{714c9bde-a114-4a61-a26a-add86991dbda} bus:/
+{c0601b88-71a4-4b96-8f33-4901a30d6ddd} bus:/Reverb
+{fb6016a3-97c0-48ff-aef3-f8343e6e8c4b} event:/Planet 1
+{f2e08867-c9ec-445e-8a77-4893b5d15cbc} event:/Planet 2
+{11b373f6-9eca-4819-bcaa-f14691f5be62} parameter:/Tremolo
+{efae33ab-de2d-4405-9aaa-983b71e24816} parameter:/flangerAmt
+{325fa412-2609-42b2-be73-e7b290745c91} parameter:/lpFilterAmt
