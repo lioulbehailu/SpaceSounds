@@ -126,3 +126,7 @@ fmod_editor.log
 
 # IDE & Unity auto-generated
 .vscode/settings.json
+
+# fmod dir Cache and Temp files
+fmodProjectSS/.cache/
+fmodProjectSS/Build/
