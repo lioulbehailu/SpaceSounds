@@ -96,6 +96,14 @@ public class SpaceInteraction : MonoBehaviour
                 // Reveal snap zones so the player knows where to drop the satellite
                 ToggleAllSnapZones(true);
             }
+
+            // 2. Try to see if we hit a PLANET
+            PlanetAudioController planetAudio = hit.collider.GetComponent<PlanetAudioController>();
+            if (planetAudio != null)
+            {
+                Debug.Log("Ray hit planet: " + hit.collider.gameObject.name);
+                planetAudio.TogglePlanetSound(); // This calls the 0->1->2->0 logic
+            }
         }
     }
 
@@ -106,7 +114,7 @@ public class SpaceInteraction : MonoBehaviour
 
         if (currentZone != null)
         {
-            // SNAP: The object was dropped inside a snap zone — attach it to that orbit
+            // SNAP: The object was dropped inside a snap zone ï¿½ attach it to that orbit
             OrbitManager manager = currentZone.GetComponentInParent<OrbitManager>();
             if (manager != null)
             {
@@ -122,7 +130,7 @@ public class SpaceInteraction : MonoBehaviour
         }
         else
         {
-            // THROW: No zone — launch the object forward into space
+            // THROW: No zone ï¿½ launch the object forward into space
             grabbedRb.AddForce(transform.forward * throwForce, ForceMode.Impulse);
         }
 
