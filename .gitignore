@@ -130,3 +130,6 @@ fmod_editor.log
 # fmod dir Cache and Temp files
 fmodProjectSS/.cache/
 fmodProjectSS/Build/
+
+# Language server cache
+*.lscache
