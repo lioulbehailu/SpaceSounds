@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class SatelliteOnOrbit : MonoBehaviour
 {
+    // script to place staellite in correct place and make it spin 
+
     public OrbitManager orbitPath;
 
     private float timeOffset = 0f; // Shifts the orbit start so we begin at the nearest point
 
+    #region snap current satellite to closest point in orbit
     public void SnapToNearestPoint()
     {
         if (orbitPath == null) return;
@@ -33,10 +36,13 @@ public class SatelliteOnOrbit : MonoBehaviour
         // Offset so that Time.time + timeOffset == bestTime at this moment
         timeOffset = bestTime - Time.time;
     }
+    #endregion
 
+    #region move stellite on orbit
     void Update()
     {
         if (orbitPath == null) return;
         transform.position = orbitPath.GetPositionAtTime(Time.time + timeOffset);
     }
+    #endregion
 }
