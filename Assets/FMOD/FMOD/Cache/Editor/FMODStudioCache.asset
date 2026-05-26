@@ -29,6 +29,61 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 14000
+--- !u!114 &-7612331335360756814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Planet 1/Tremolo
+  m_EditorClassIdentifier: 
+  Name: Tremolo
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1277147378
+    data2: 3378104959
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-6880175872612625760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Planet 2
+  m_EditorClassIdentifier: 
+  Path: event:/Planet 2
+  Guid:
+    Data1: -220166041
+    Data2: 1147062764
+    Data3: -1823967350
+    Data4: -1134767691
+  Banks:
+  - {fileID: -1268080588957701467}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -3374809102214104714}
+  - {fileID: 5570541818880799598}
+  - {fileID: -5231745378078242478}
+  - {fileID: -3737853161472627499}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 26668
 --- !u!114 &-6241189881503227898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,6 +103,30 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 506464
+  Exists: 1
+--- !u!114 &-5689223229052899863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Planet 1/PlanetState
+  m_EditorClassIdentifier: 
+  Name: PlanetState
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 2666655443
+    data2: 156133708
+  Type: 1
+  IsGlobal: 0
+  Labels: []
   Exists: 1
 --- !u!114 &-5415426294973745356
 MonoBehaviour:
@@ -98,6 +177,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 14000
+--- !u!114 &-5231745378078242478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Planet 2/Tremolo
+  m_EditorClassIdentifier: 
+  Name: Tremolo
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1277147378
+    data2: 3378104959
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-5057240475190677672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +221,30 @@ MonoBehaviour:
   ID:
     data1: 3147055085
     data2: 1151734881
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-4736760753702146215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Planet 1/flangerAmt
+  m_EditorClassIdentifier: 
+  Name: flangerAmt
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1132484432
+    data2: 2993650787
   Type: 0
   IsGlobal: 0
   Labels: []
@@ -167,6 +294,54 @@ MonoBehaviour:
     data1: 3147055085
     data2: 1151734881
   Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-3737853161472627499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Planet 2/flangerAmt
+  m_EditorClassIdentifier: 
+  Name: flangerAmt
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1132484432
+    data2: 2993650787
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-3374809102214104714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Planet 2/PlanetState
+  m_EditorClassIdentifier: 
+  Name: PlanetState
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 2666655443
+    data2: 156133708
+  Type: 1
   IsGlobal: 0
   Labels: []
   Exists: 1
@@ -311,6 +486,30 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-1544984743066247499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Planet 1/lpFilterAmt
+  m_EditorClassIdentifier: 
+  Name: lpFilterAmt
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3147055085
+    data2: 1151734881
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-1309985804256364881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +533,24 @@ MonoBehaviour:
   Type: 0
   IsGlobal: 0
   Labels: []
+  Exists: 1
+--- !u!114 &-1268080588957701467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/StreamingAssets/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 639150444919666872
+  FileSizes: []
   Exists: 1
 --- !u!114 &-864714028201918522
 MonoBehaviour:
@@ -442,23 +659,43 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -3125446832413551565}
-  - {fileID: 7999136567308579420}
+  - {fileID: 182705609542309185}
+  - {fileID: -1268080588957701467}
   EditorEvents:
-  - {fileID: -108021622443805026}
-  - {fileID: 3937262146213606920}
+  - {fileID: -6880175872612625760}
+  - {fileID: 1511956184592116545}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 7999136567308579420}
+  - {fileID: -1268080588957701467}
   StringsBanks:
-  - {fileID: -3125446832413551565}
+  - {fileID: 182705609542309185}
   cacheVersion: 131859
-  cacheTime: 639144527933070537
+  cacheTime: 639150444919688198
   SerializableEventsDict:
-  - key: event:/Planet 1
-    index: 0
   - key: event:/Planet 2
+    index: 0
+  - key: event:/Planet 1
     index: 1
+--- !u!114 &182705609542309185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/StreamingAssets/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 639150444919688198
+  FileSizes:
+  - Name: 
+    Value: 1000
+  Exists: 1
 --- !u!114 &223641371433923606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +740,37 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &1511956184592116545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Planet 1
+  m_EditorClassIdentifier: 
+  Path: event:/Planet 1
+  Guid:
+    Data1: -77588829
+    Data2: 1224710080
+    Data3: 888730542
+    Data4: 1267494462
+  Banks:
+  - {fileID: -1268080588957701467}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -4736760753702146215}
+  - {fileID: -7612331335360756814}
+  - {fileID: -5689223229052899863}
+  - {fileID: -1544984743066247499}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 26668
 --- !u!114 &3452679187529246785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,6 +914,30 @@ MonoBehaviour:
   StudioPath: bank:/Master
   lastModified: 639130706101752749
   FileSizes: []
+  Exists: 1
+--- !u!114 &5570541818880799598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Planet 2/lpFilterAmt
+  m_EditorClassIdentifier: 
+  Name: lpFilterAmt
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3147055085
+    data2: 1151734881
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
 --- !u!114 &6019186449228391642
 MonoBehaviour:

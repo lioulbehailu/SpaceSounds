@@ -2454,6 +2454,7 @@ GameObject:
   - component: {fileID: 1429177849}
   - component: {fileID: 1429177847}
   - component: {fileID: 1429177846}
+  - component: {fileID: 1429177855}
   - component: {fileID: 1429177854}
   m_Layer: 0
   m_Name: SatelliteFilter
@@ -2602,9 +2603,12 @@ Transform:
   m_LocalPosition: {x: -2.149, y: 2.894, z: -0.86}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1996843059}
+  - {fileID: 957036930}
+  - {fileID: 1086948721}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 18.134, y: 34.447, z: 77.514}
+  m_LocalEulerAnglesHint: {x: 103.9, y: 34.447, z: 77.514}
 --- !u!114 &1429177854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2665,6 +2669,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1429177855}
+        m_TargetAssemblyTypeName: SatelliteLightController, Assembly-CSharp
+        m_MethodName: OnGrabbed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
@@ -2672,6 +2688,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: XRSpaceInteraction, Assembly-CSharp
         m_MethodName: OnSatelliteReleased
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1429177855}
+        m_TargetAssemblyTypeName: SatelliteLightController, Assembly-CSharp
+        m_MethodName: OnReleased
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2701,7 +2729,7 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1996843059}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
