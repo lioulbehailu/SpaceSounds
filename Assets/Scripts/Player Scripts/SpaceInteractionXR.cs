@@ -14,10 +14,27 @@ public class XRSpaceInteraction : MonoBehaviour
 
     void Update()
     {
-        // If holding an object in VR, check if it's near a snap zone
         if (grabbedObject != null)
         {
-            CheckForSnapZone();
+            SatelliteFilter filter = grabbedObject.GetComponent<SatelliteFilter>();
+            if (filter != null)
+            {
+                GameObject newZone = filter.CurrentSnapZone;
+
+                // Entered a zone
+                if (newZone != null && newZone != currentZone)
+                {
+                    if (currentZone != null) TogglePlanetHighlight(currentZone, false);
+                    currentZone = newZone;
+                    TogglePlanetHighlight(currentZone, true);
+                }
+                // Left a zone
+                else if (newZone == null && currentZone != null)
+                {
+                    TogglePlanetHighlight(currentZone, false);
+                    currentZone = null;
+                }
+            }
         }
     }
 
@@ -59,7 +76,7 @@ public class XRSpaceInteraction : MonoBehaviour
         }
         else
         {
-            // THROW INTO SPACE (Uses the controller's forward direction)
+            // THROW INTO SPACE
             grabbedRb.AddForce(transform.forward * throwForce, ForceMode.Impulse);
         }
 
@@ -80,40 +97,8 @@ public class XRSpaceInteraction : MonoBehaviour
     }
 
     #region Snap Zone Logic
-    void CheckForSnapZone()
-    {
-        // Try increasing 1.0f to 5.0f to give yourself a wider target for testing
-        Collider[] hits = Physics.OverlapSphere(grabbedObject.transform.position, 5.0f);
-        bool foundZone = false;
-
-        foreach (Collider hit in hits)
-        {
-            if (hit.CompareTag("SnapZone"))
-            {
-                foundZone = true;
-
-                if (currentZone != hit.gameObject)
-                {
-                    if (currentZone != null) TogglePlanetHighlight(currentZone, false);
-
-                    currentZone = hit.gameObject;
-                    Debug.Log("🎯 SUCCESS: Entered SnapZone! Attempting to highlight planet.");
-                    TogglePlanetHighlight(currentZone, true);
-                }
-            }
-        }
-
-        if (!foundZone && currentZone != null)
-        {
-            Debug.Log("👋 LEFT ZONE: Resetting planet color.");
-            TogglePlanetHighlight(currentZone, false);
-            currentZone = null;
-        }
-    }
-
     void TogglePlanetHighlight(GameObject zone, bool turnOn)
     {
-        // look to the look parent for the visual manager script
         PlanetVisuals visuals = zone.GetComponentInParent<PlanetVisuals>();
         Debug.Log("🎯 Trying to toggle planet highlight" + visuals.gameObject.name);
 
@@ -121,17 +106,14 @@ public class XRSpaceInteraction : MonoBehaviour
         {
             if (turnOn)
             {
-                // pass true to inflate with ambient color
                 Color ambientGreen = new Color(0f, 1f, 0.2f, 0.4f);
                 visuals.SetDockingInflation(true, ambientGreen);
             }
             else
             {
-                // pass false to deflate and remove the ambient color
                 visuals.SetDockingInflation(false, Color.black);
             }
         }
     }
-
     #endregion
 }

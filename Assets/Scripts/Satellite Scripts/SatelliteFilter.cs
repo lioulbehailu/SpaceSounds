@@ -18,6 +18,9 @@ public class SatelliteFilter : MonoBehaviour
     // The FMOD emitter attached to the planet we're hovering over
     private StudioEventEmitter activeEmitter;
 
+    // XRSpaceInteraction can read this to know if we're in a snap zone
+    public GameObject CurrentSnapZone { get; private set; }
+
     void Update()
     {
         // Smoothly slide currentValue toward targetValue each frame instead of snapping instantly
@@ -35,6 +38,7 @@ public class SatelliteFilter : MonoBehaviour
         // Fires when the satellite enters a snap zone collider
         if (other.name == "SnapZone")
         {
+            CurrentSnapZone = other.gameObject; // expose it
             // Grab the FMOD emitter from the parent planet of this snap zone
             activeEmitter = other.GetComponentInParent<StudioEventEmitter>();
 
@@ -48,6 +52,7 @@ public class SatelliteFilter : MonoBehaviour
         // Fires when the satellite leaves a snap zone collider
         if (other.name == "SnapZone")
         {
+            CurrentSnapZone = null; // clear it
             // Tell the filter to turn off
             targetValue = 0f;
         }
