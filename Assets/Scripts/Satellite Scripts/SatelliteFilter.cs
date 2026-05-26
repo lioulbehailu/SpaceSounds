@@ -15,6 +15,10 @@ public class SatelliteFilter : MonoBehaviour
     private SatelliteLightController lightController;
     #endregion
 
+    #region Snap Zone Reference
+    public GameObject CurrentSnapZone { get; private set; }
+    #endregion
+
     #region Connect SatelliteLightController
     void Awake()
     {
@@ -26,7 +30,6 @@ public class SatelliteFilter : MonoBehaviour
     void Update()
     {
         currentValue = Mathf.Lerp(currentValue, targetValue, Time.deltaTime * transitionSpeed);
-
         if (activeEmitter != null && activeEmitter.IsPlaying())
         {
             activeEmitter.EventInstance.setParameterByName(parameterName, currentValue);
@@ -34,18 +37,25 @@ public class SatelliteFilter : MonoBehaviour
     }
     #endregion
 
-    #region Snap Zone Callbacks (called by XRSpaceInteraction)
-    public void OnEnteredSnapZone(GameObject zone)
+    #region Satellite entering Snap Zone Logic
+    private void OnTriggerEnter(Collider other)
     {
-        activeEmitter = zone.GetComponentInParent<StudioEventEmitter>();
-        targetValue = 1f;
-        lightController?.OnEnteredOrbit();
+        if (other.CompareTag("SnapZone"))
+        {
+            CurrentSnapZone = other.gameObject; // ← expose it
+            activeEmitter = other.GetComponentInParent<StudioEventEmitter>();
+            targetValue = 1f;
+            lightController.OnEnteredOrbit();
+        }
     }
 
-    public void OnExitedSnapZone()
+    private void OnTriggerExit(Collider other)
     {
-        targetValue = 0f;
-        activeEmitter = null;
+        if (other.CompareTag("SnapZone"))
+        {
+            CurrentSnapZone = null;
+            targetValue = 0f;
+        }
     }
     #endregion
 }
