@@ -9,15 +9,29 @@ public class XRSpaceInteraction : MonoBehaviour
     private GameObject grabbedObject;
     private Rigidbody grabbedRb;
     private SatelliteOnOrbit grabbedSatelliteScript;
+    private SatelliteFilter grabbedSatelliteFilter;
     private GameObject currentZone;
     #endregion
 
     void Update()
     {
-        // If holding an object in VR, check if it's near a snap zone
         if (grabbedObject != null)
         {
-            CheckForSnapZone();
+            GameObject newZone = grabbedSatelliteFilter?.CurrentSnapZone;
+
+            if (newZone != null && newZone != currentZone)
+            {
+                if (currentZone != null) TogglePlanetHighlight(currentZone, false);
+                currentZone = newZone;
+                Debug.Log("🎯 SUCCESS: Entered SnapZone!");
+                TogglePlanetHighlight(currentZone, true);
+            }
+            else if (newZone == null && currentZone != null)
+            {
+                Debug.Log("👋 LEFT ZONE: Resetting planet color.");
+                TogglePlanetHighlight(currentZone, false);
+                currentZone = null;
+            }
         }
     }
 
@@ -27,13 +41,14 @@ public class XRSpaceInteraction : MonoBehaviour
         grabbedObject = args.interactableObject.transform.gameObject;
         grabbedRb = grabbedObject.GetComponent<Rigidbody>();
         grabbedSatelliteScript = grabbedObject.GetComponent<SatelliteOnOrbit>();
+        grabbedSatelliteFilter = grabbedObject.GetComponent<SatelliteFilter>();
 
         if (grabbedSatelliteScript != null)
         {
-            grabbedSatelliteScript.orbitPath = null; // Detach from orbit
+            grabbedSatelliteScript.orbitPath = null;
         }
 
-        grabbedRb.isKinematic = false; // Let VR hand physics move it
+        grabbedRb.isKinematic = false;
     }
 
     // Called when the VR hand deselects (releases) an object
@@ -67,6 +82,7 @@ public class XRSpaceInteraction : MonoBehaviour
         grabbedObject = null;
         grabbedRb = null;
         grabbedSatelliteScript = null;
+        grabbedSatelliteFilter = null;
     }
 
     // Called when the VR Controller ray points at a planet and triggers it
@@ -80,40 +96,9 @@ public class XRSpaceInteraction : MonoBehaviour
     }
 
     #region Snap Zone Logic
-    void CheckForSnapZone()
-    {
-        // Try increasing 1.0f to 5.0f to give yourself a wider target for testing
-        Collider[] hits = Physics.OverlapSphere(grabbedObject.transform.position, 5.0f);
-        bool foundZone = false;
-
-        foreach (Collider hit in hits)
-        {
-            if (hit.CompareTag("SnapZone"))
-            {
-                foundZone = true;
-
-                if (currentZone != hit.gameObject)
-                {
-                    if (currentZone != null) TogglePlanetHighlight(currentZone, false);
-
-                    currentZone = hit.gameObject;
-                    Debug.Log("🎯 SUCCESS: Entered SnapZone! Attempting to highlight planet.");
-                    TogglePlanetHighlight(currentZone, true);
-                }
-            }
-        }
-
-        if (!foundZone && currentZone != null)
-        {
-            Debug.Log("👋 LEFT ZONE: Resetting planet color.");
-            TogglePlanetHighlight(currentZone, false);
-            currentZone = null;
-        }
-    }
-
     void TogglePlanetHighlight(GameObject zone, bool turnOn)
     {
-        // look to the look parent for the visual manager script
+        // look to the parent for the visual manager script
         PlanetVisuals visuals = zone.GetComponentInParent<PlanetVisuals>();
         Debug.Log("🎯 Trying to toggle planet highlight" + visuals.gameObject.name);
 
@@ -132,6 +117,5 @@ public class XRSpaceInteraction : MonoBehaviour
             }
         }
     }
-
     #endregion
 }
