@@ -4,11 +4,13 @@ using FMODUnity;
 public class SatelliteFilter : MonoBehaviour
 {
     #region FMOD Settings
+    // The name of the FMOD parameter to control (set in the FMOD Studio event)
     public string parameterName = "PlanetFilter";
     public float transitionSpeed;
     #endregion
 
     #region Internal State
+    // Where we want the filter to end up 
     private float targetValue = 0f;
     private float currentValue = 0f;
     private StudioEventEmitter activeEmitter;
