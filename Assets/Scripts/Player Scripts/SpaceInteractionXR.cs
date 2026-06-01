@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class XRSpaceInteraction : MonoBehaviour
+public class SpaceInteractionXR : MonoBehaviour
 {
     #region Variables
     public float throwForce = 10f;
@@ -10,28 +10,19 @@ public class XRSpaceInteraction : MonoBehaviour
     private Rigidbody grabbedRb;
     private SatelliteOnOrbit grabbedSatelliteScript;
     private SatelliteFilter grabbedSatelliteFilter;
-    private GameObject currentZone;
     #endregion
 
     void Update()
     {
-        if (grabbedObject != null)
-        {
-            GameObject newZone = grabbedSatelliteFilter?.CurrentSnapZone;
+        if (grabbedObject == null || grabbedSatelliteFilter == null)
+            return;
 
-            if (newZone != null && newZone != currentZone)
-            {
-                if (currentZone != null) TogglePlanetHighlight(currentZone, false);
-                currentZone = newZone;
-                Debug.Log("🎯 SUCCESS: Entered SnapZone!");
-                TogglePlanetHighlight(currentZone, true);
-            }
-            else if (newZone == null && currentZone != null)
-            {
-                Debug.Log("👋 LEFT ZONE: Resetting planet color.");
-                TogglePlanetHighlight(currentZone, false);
-                currentZone = null;
-            }
+        GameObject zone = grabbedSatelliteFilter.CurrentSnapZone;
+
+        if (zone != null)
+        {
+            Debug.Log("🎯 In SnapZone");
+            TogglePlanetHighlight(zone, true);
         }
     }
 
@@ -58,24 +49,16 @@ public class XRSpaceInteraction : MonoBehaviour
 
         grabbedRb.isKinematic = false;
 
-        if (currentZone != null)
+        if (grabbedSatelliteFilter != null &&
+            grabbedSatelliteFilter.CurrentSnapZone != null)
         {
-            // SNAP TO ORBIT
-            OrbitManager manager = currentZone.GetComponentInParent<OrbitManager>();
-            if (manager != null)
-            {
-                grabbedRb.linearVelocity = Vector3.zero;
-                grabbedRb.isKinematic = true;
-                grabbedSatelliteScript.orbitPath = manager;
-                grabbedSatelliteScript.SnapToNearestPoint();
-            }
-            TogglePlanetHighlight(currentZone, false);
-            currentZone = null;
-        }
-        else
-        {
-            // THROW INTO SPACE (Uses the controller's forward direction)
-            grabbedRb.AddForce(transform.forward * throwForce, ForceMode.Impulse);
+            OrbitManager manager =
+                grabbedSatelliteFilter.CurrentSnapZone.GetComponentInParent<OrbitManager>();
+
+            grabbedRb.linearVelocity = Vector3.zero;
+            grabbedRb.isKinematic = true;
+            grabbedSatelliteScript.orbitPath = manager;
+            grabbedSatelliteScript.SnapToNearestPoint();
         }
 
         // Clear references

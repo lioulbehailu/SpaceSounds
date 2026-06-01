@@ -7,14 +7,15 @@ TagManager:
   - TrackingObject
   - SnapZone
   - Satellite
+  - InteractiveZone
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Satellite
   - Water
   - UI
-  - 
+  - InteractiveZone
   - 
   - 
   - 
