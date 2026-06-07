@@ -4,25 +4,33 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class SpaceInteractionXR : MonoBehaviour
 {
     #region Variables
-    public float throwForce = 10f;
-
     private GameObject grabbedObject;
     private Rigidbody grabbedRb;
     private SatelliteOnOrbit grabbedSatelliteScript;
     private SatelliteFilter grabbedSatelliteFilter;
+    private GameObject currentZone;
+
     #endregion
 
     void Update()
     {
-        if (grabbedObject == null || grabbedSatelliteFilter == null)
-            return;
-
-        GameObject zone = grabbedSatelliteFilter.CurrentSnapZone;
-
-        if (zone != null)
+        if (grabbedObject != null)
         {
-            Debug.Log("🎯 In SnapZone");
-            TogglePlanetHighlight(zone, true);
+            GameObject newZone = grabbedSatelliteFilter?.CurrentSnapZone;
+
+            if (newZone != null && newZone != currentZone)
+            {
+                if (currentZone != null) TogglePlanetHighlight(currentZone, false);
+                currentZone = newZone;
+                Debug.Log("🎯 SUCCESS: Entered SnapZone!");
+                TogglePlanetHighlight(currentZone, true);
+            }
+            else if (newZone == null && currentZone != null)
+            {
+                Debug.Log("👋 LEFT ZONE: Resetting planet color.");
+                TogglePlanetHighlight(currentZone, false);
+                currentZone = null;
+            }
         }
     }
 
@@ -49,16 +57,23 @@ public class SpaceInteractionXR : MonoBehaviour
 
         grabbedRb.isKinematic = false;
 
-        if (grabbedSatelliteFilter != null &&
-            grabbedSatelliteFilter.CurrentSnapZone != null)
+        if (currentZone != null)
         {
-            OrbitManager manager =
-                grabbedSatelliteFilter.CurrentSnapZone.GetComponentInParent<OrbitManager>();
-
-            grabbedRb.linearVelocity = Vector3.zero;
-            grabbedRb.isKinematic = true;
-            grabbedSatelliteScript.orbitPath = manager;
-            grabbedSatelliteScript.SnapToNearestPoint();
+            // SNAP TO ORBIT
+            OrbitManager manager = currentZone.GetComponentInParent<OrbitManager>();
+            if (manager != null)
+            {
+                grabbedRb.linearVelocity = Vector3.zero;
+                grabbedRb.isKinematic = true;
+                grabbedSatelliteScript.orbitPath = manager;
+                grabbedSatelliteScript.SnapToNearestPoint();
+            }
+            TogglePlanetHighlight(currentZone, false);
+            currentZone = null;
+        }
+        else
+        {
+            grabbedSatelliteScript?.OnThrown();
         }
 
         // Clear references
@@ -89,14 +104,13 @@ public class SpaceInteractionXR : MonoBehaviour
         {
             if (turnOn)
             {
-                // pass true to inflate with ambient color
-                Color ambientGreen = new Color(0f, 1f, 0.2f, 0.4f);
-                visuals.SetDockingInflation(true, ambientGreen);
+                // pass true to inflate
+                visuals.SetDockingInflation(true);
             }
             else
             {
-                // pass false to deflate and remove the ambient color
-                visuals.SetDockingInflation(false, Color.black);
+                // pass false to deflate
+                visuals.SetDockingInflation(false);
             }
         }
     }
