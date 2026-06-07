@@ -38,14 +38,13 @@ public class PlanetVisuals : MonoBehaviour
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * animationSpeed);
     }
 
-    public void SetDockingInflation(bool inflate, Color ambientColor)
+    public void SetDockingInflation(bool inflate)
     {
         isDockingActive = inflate;
 
         if (inflate)
         {
             targetScale = originalScale * inflateScaleMultiplier; // Inflate
-            ApplyColorOverlay(ambientColor);                      // Show Ambient Color
         }
         else
         {
