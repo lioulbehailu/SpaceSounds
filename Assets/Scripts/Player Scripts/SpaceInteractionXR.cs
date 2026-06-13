@@ -106,11 +106,13 @@ public class SpaceInteractionXR : MonoBehaviour
             {
                 // pass true to inflate
                 visuals.SetDockingInflation(true);
+                visuals.SetGlowIntensity(true);
             }
             else
             {
                 // pass false to deflate
                 visuals.SetDockingInflation(false);
+                visuals.SetGlowIntensity(false); 
             }
         }
     }

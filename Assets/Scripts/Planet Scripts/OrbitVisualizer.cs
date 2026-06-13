@@ -27,15 +27,8 @@ public class OrbitVisualizer : MonoBehaviour
         particleSys = GetComponent<ParticleSystem>();
 
         Build3DOrbitMesh();
-        InitializeParticles();
     }
 
-    void Update()
-    {
-        AnimateParticles();
-    }
-
-    // STEP 1: Generate a true 3D volumetric tube around the circumference
     void Build3DOrbitMesh()
     {
         if (orbitManager == null || orbitManager.planet == null) return;
@@ -114,55 +107,5 @@ public class OrbitVisualizer : MonoBehaviour
         mesh.RecalculateBounds();
 
         meshFilter.mesh = mesh;
-    }
-
-    // STEP 2: Handle dust particle loop distribution
-    void InitializeParticles()
-    {
-        if (particleSys == null || orbitManager == null) return;
-
-        var emission = particleSys.emission;
-        emission.enabled = false;
-
-        particles = new ParticleSystem.Particle[totalParticles];
-        particleTimeOffsets = new float[totalParticles];
-
-        particleSys.Emit(totalParticles);
-        particleSys.GetParticles(particles);
-
-        for (int i = 0; i < totalParticles; i++)
-        {
-            float progress = (float)i / totalParticles;
-            particleTimeOffsets[i] = progress * orbitManager.orbitalPeriod;
-
-            particles[i].startSize = Random.Range(0.02f, 0.08f);
-            particles[i].startColor = new Color(1f, 1f, 1f, Random.Range(0.3f, 0.7f));
-            particles[i].remainingLifetime = 1000f;
-        }
-    }
-
-    // STEP 3: Swirl particles flawlessly along the path
-    void AnimateParticles()
-    {
-        if (particleSys == null || orbitManager == null || particles == null) return;
-
-        for (int i = 0; i < totalParticles; i++)
-        {
-            particleTimeOffsets[i] += Time.deltaTime * particleOrbitSpeed;
-
-            if (particleTimeOffsets[i] >= orbitManager.orbitalPeriod)
-            {
-                particleTimeOffsets[i] -= orbitManager.orbitalPeriod;
-            }
-
-            Vector3 corePosition = orbitManager.GetPositionAtTime(particleTimeOffsets[i]);
-
-            Random.InitState(i);
-            Vector3 cloudOffset = Random.insideUnitSphere * particleSpread;
-
-            particles[i].position = corePosition + cloudOffset;
-        }
-
-        particleSys.SetParticles(particles, totalParticles);
     }
 }

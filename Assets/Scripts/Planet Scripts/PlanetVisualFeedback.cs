@@ -9,10 +9,21 @@ public class PlanetVisualFeedback : MonoBehaviour
     [Header("Base Highlight Material")]
     [SerializeField] private Material baseHighlightMaterial;
 
-    [Header("Docking Animation Settings")]
+    [Header("Orbit Glow Material")]
+    [SerializeField] private Material orbitGlowMaterial; // 👈 Assign your OrbitGlow material preset here
+
+    [Header("Inflation Target Settings")]
+    [SerializeField] private Transform inflationTarget;
+
+    [Header("Animation Settings")]
     [SerializeField] private float inflateScaleMultiplier = 1.15f;
     [SerializeField] private float animationSpeed = 5f;
+    [SerializeField] private float intensiveGlowMultiplier = 3.0f; // How much to boost the emission HDR intensity
 
+    [Header("SnapZone Reference")]
+    [SerializeField] private SnapZoneCounter snapZone;
+
+    private Material runtimeOrbitMaterial;
     private Material runtimeMaterialInstance;
     private Vector3 originalScale;
     private Vector3 targetScale;
@@ -21,21 +32,51 @@ public class PlanetVisualFeedback : MonoBehaviour
     private bool isAudioColorActive = false;
     private bool isDockingActive = false;
 
+    // OrbitGlow cache variables
+    private Color originalGlowColor;
+    private Color targetGlowColor;
+
     void Start()
     {
-        originalScale = transform.localScale;
+        originalScale = inflationTarget.localScale;
         targetScale = originalScale;
 
+        // 1. Handle base highlight material as before
         if (baseHighlightMaterial != null)
         {
             runtimeMaterialInstance = new Material(baseHighlightMaterial);
+        }
+
+        // 2. Handle Orbit material
+        if (orbitGlowMaterial != null)
+        {
+            // Create the instance
+            runtimeOrbitMaterial = new Material(orbitGlowMaterial);
+
+            Renderer orbitRenderer = GetComponent<Renderer>(); 
+            if (orbitRenderer != null)
+            {
+                orbitRenderer.material = runtimeOrbitMaterial;
+            }
+
+            originalGlowColor = runtimeOrbitMaterial.GetColor("_EmissionColor");
+            targetGlowColor = originalGlowColor;
+            runtimeOrbitMaterial.SetColor("_EmissionColor", Color.black);
         }
     }
 
     void Update()
     {
-        // Smoothly animate the scale
-        transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * animationSpeed);
+        inflationTarget.localScale = Vector3.Lerp(inflationTarget.localScale, targetScale, Time.deltaTime * animationSpeed);
+
+        Color finalGlowTarget = (snapZone.IsOccupied || isDockingActive) ? targetGlowColor : Color.black;
+
+        if (runtimeOrbitMaterial != null) // Check the runtime instance
+        {
+            Color currentGlow = runtimeOrbitMaterial.GetColor("_EmissionColor");
+            Color nextGlow = Color.Lerp(currentGlow, finalGlowTarget, Time.deltaTime * animationSpeed);
+            runtimeOrbitMaterial.SetColor("_EmissionColor", nextGlow);
+        }
     }
 
     public void SetDockingInflation(bool inflate)
@@ -57,6 +98,23 @@ public class PlanetVisualFeedback : MonoBehaviour
             {
                 RemoveColorOverlay(); // Only completely strip if audio is muted (State 0)
             }
+        }
+    }
+
+    // 👈 New method to increase/decrease OrbitGlow emission intensity
+    public void SetGlowIntensity(bool intensive)
+    {
+        if (runtimeOrbitMaterial == null) return;
+
+        if (intensive)
+        {
+            // Boost the original emission color by your multiplier
+            targetGlowColor = originalGlowColor * intensiveGlowMultiplier;
+        }
+        else
+        {
+            // Return to the original asset value
+            targetGlowColor = originalGlowColor;
         }
     }
 
@@ -124,4 +182,12 @@ public class PlanetVisualFeedback : MonoBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        if (runtimeMaterialInstance != null)
+            Destroy(runtimeMaterialInstance);
+
+        if (runtimeOrbitMaterial != null)
+            Destroy(runtimeOrbitMaterial);
+    }
 }

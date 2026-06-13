@@ -11,7 +11,7 @@ public class OrbitManager : MonoBehaviour
     // Converts a raw angle into an actual world position on the ellipse
     private Vector3 GetPositionAtAngle(float t)
     {
-        // Ellipse formula — x stretches horizontally, z stretches along the other axis
+        // Ellipse formula â€” x stretches horizontally, z stretches along the other axis
         float x = semiMajorAxis * (Mathf.Cos(t) - eccentricity);
         float z = semiMajorAxis * Mathf.Sqrt(1 - eccentricity * eccentricity) * Mathf.Sin(t);
 
@@ -34,7 +34,7 @@ public class OrbitManager : MonoBehaviour
         return GetPositionAtAngle(E);
     }
 
-    // Only runs in the Unity Editor — draws the orbit path as yellow dots in the scene view
+    // Only runs in the Unity Editor â€” draws the orbit path as yellow dots in the scene view
     void OnDrawGizmos()
     {
         if (!showOrbitPath || planet == null) return;
