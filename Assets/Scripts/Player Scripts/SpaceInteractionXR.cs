@@ -6,8 +6,8 @@ public class SpaceInteractionXR : MonoBehaviour
     #region Variables
     private GameObject grabbedObject;
     private Rigidbody grabbedRb;
-    private SatelliteOnOrbit grabbedSatelliteScript;
-    private SatelliteFilter grabbedSatelliteFilter;
+    private SatelliteOnOrbit grabbedSatelliteOnOrbitScript;
+    private SatelliteFilter grabbedSatelliteFilterScript;
     private GameObject currentZone;
 
     #endregion
@@ -16,7 +16,7 @@ public class SpaceInteractionXR : MonoBehaviour
     {
         if (grabbedObject != null)
         {
-            GameObject newZone = grabbedSatelliteFilter?.CurrentSnapZone;
+            GameObject newZone = grabbedSatelliteFilterScript?.CurrentSnapZone;
 
             if (newZone != null && newZone != currentZone)
             {
@@ -39,12 +39,12 @@ public class SpaceInteractionXR : MonoBehaviour
     {
         grabbedObject = args.interactableObject.transform.gameObject;
         grabbedRb = grabbedObject.GetComponent<Rigidbody>();
-        grabbedSatelliteScript = grabbedObject.GetComponent<SatelliteOnOrbit>();
-        grabbedSatelliteFilter = grabbedObject.GetComponent<SatelliteFilter>();
+        grabbedSatelliteOnOrbitScript = grabbedObject.GetComponent<SatelliteOnOrbit>();
+        grabbedSatelliteFilterScript = grabbedObject.GetComponent<SatelliteFilter>();
 
-        if (grabbedSatelliteScript != null)
+        if (grabbedSatelliteOnOrbitScript != null)
         {
-            grabbedSatelliteScript.orbitPath = null;
+            grabbedSatelliteOnOrbitScript.OnGrabbed();
         }
 
         grabbedRb.isKinematic = false;
@@ -65,28 +65,28 @@ public class SpaceInteractionXR : MonoBehaviour
             {
                 grabbedRb.linearVelocity = Vector3.zero;
                 grabbedRb.isKinematic = true;
-                grabbedSatelliteScript.orbitPath = manager;
-                grabbedSatelliteScript.SnapToNearestPoint();
+                grabbedSatelliteOnOrbitScript.orbitPath = manager;
+                grabbedSatelliteOnOrbitScript.SnapToNearestPoint();
             }
             TogglePlanetHighlight(currentZone, false);
             currentZone = null;
         }
         else
         {
-            grabbedSatelliteScript?.OnThrown();
+            grabbedSatelliteOnOrbitScript?.OnThrown();
         }
 
         // Clear references
         grabbedObject = null;
         grabbedRb = null;
-        grabbedSatelliteScript = null;
-        grabbedSatelliteFilter = null;
+        grabbedSatelliteOnOrbitScript = null;
+        grabbedSatelliteFilterScript = null;
     }
 
     // Called when the VR Controller ray points at a planet and triggers it
     public void OnPlanetTriggered(SelectEnterEventArgs args)
     {
-        PlanetAudioController planetAudio = args.interactableObject.transform.GetComponent<PlanetAudioController>();
+        PlanetLoopController planetAudio = args.interactableObject.transform.GetComponent<PlanetLoopController>();
         if (planetAudio != null)
         {
             planetAudio.TogglePlanetSound();
@@ -97,7 +97,7 @@ public class SpaceInteractionXR : MonoBehaviour
     void TogglePlanetHighlight(GameObject zone, bool turnOn)
     {
         // look to the parent for the visual manager script
-        PlanetVisuals visuals = zone.GetComponentInParent<PlanetVisuals>();
+        PlanetVisualFeedback visuals = zone.GetComponentInParent<PlanetVisualFeedback>();
         Debug.Log("🎯 Trying to toggle planet highlight" + visuals.gameObject.name);
 
         if (visuals != null)

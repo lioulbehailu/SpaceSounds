@@ -65,17 +65,17 @@ public class PlanetGlow : MonoBehaviour
     private void OnEnable()
     {
         // Wait until the end of frame or check if instance exists
-        if (PlanetManager.Instance != null)
+        if (PlanetGlowManager.Instance != null)
         {
-            PlanetManager.Instance.RegisterPlanet(this);
+            PlanetGlowManager.Instance.RegisterPlanet(this);
         }
     }
 
     private void OnDisable()
     {
-        if (PlanetManager.Instance != null)
+        if (PlanetGlowManager.Instance != null)
         {
-            PlanetManager.Instance.UnregisterPlanet(this);
+            PlanetGlowManager.Instance.UnregisterPlanet(this);
         }
     }
 }

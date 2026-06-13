@@ -2,27 +2,41 @@ using UnityEngine;
 
 public class SatelliteOnOrbit : MonoBehaviour
 {
-    // script to place staellite in correct place and make it spin
-
     public OrbitManager orbitPath;
 
-    private float timeOffset = 0f; // Shifts the orbit start so we begin at the nearest point
+    private float timeOffset = 0f;
     private bool isThrown = false;
     private Rigidbody rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    // Called the exact moment the player grabs the satellite
+    public void OnGrabbed()
+    {
+        isThrown = false; // Stop tracking as a thrown projectile
+        orbitPath = null; // Clear old orbits while holding it
+    }
+
+    // Called by SpaceInteractionXR when satellite is released/tossed
+    public void OnThrown()
+    {
+        isThrown = true;
+        orbitPath = null;
+    }
 
     #region snap current satellite to closest point in orbit
     public void SnapToNearestPoint()
     {
         if (orbitPath == null) return;
 
-        isThrown = false; // stop physics, start orbiting
+        isThrown = false; // Successfully docked! Stop tracking as a thrown projectile
 
-        // Binary search or sample the orbit to find the time value whose
-        // position is closest to where the satellite currently is
         float bestTime = 0f;
         float bestDist = float.MaxValue;
 
-        // Sample the orbit in small steps to find the closest point
         int samples = 360;
         for (int i = 0; i < samples; i++)
         {
@@ -37,10 +51,8 @@ public class SatelliteOnOrbit : MonoBehaviour
             }
         }
 
-        // Offset so that Time.time + timeOffset == bestTime at this moment
         timeOffset = bestTime - Time.time;
 
-        // Stop physics movement
         if (rb != null)
         {
             rb.linearVelocity = Vector3.zero;
@@ -49,38 +61,24 @@ public class SatelliteOnOrbit : MonoBehaviour
     }
     #endregion
 
-    #region move stellite on orbit
     void Update()
     {
         if (orbitPath == null) return;
-        if (isThrown) return; // let physics handle movement while thrown
+        if (isThrown) return; // Let physics engine control it through the air
 
         transform.position = orbitPath.GetPositionAtTime(Time.time + timeOffset);
     }
-    #endregion
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    // Called by SpaceInteractionXR when satellite is released
-    public void OnThrown()
-    {
-        isThrown = true;
-        orbitPath = null;
-    }
-
-    // Triggered when satellite physically enters a SnapZone trigger collider
+    // Triggered when the flying satellite hits a SnapZone trigger collider
     private void OnTriggerEnter(Collider other)
     {
-        // Only react if currently thrown (not grabbed, not already orbiting)
+        // CRITICAL: If we are still holding it, isThrown is false, so it will ignore this completely!
         if (!isThrown) return;
         if (orbitPath != null) return;
 
         if (other.CompareTag("SnapZone"))
         {
-            Debug.Log(gameObject.name + " entered SnapZone after throw — snapping to orbit.");
+            Debug.Log(gameObject.name + " caught mid-air by SnapZone — snapping to orbit.");
 
             OrbitManager manager = other.GetComponentInParent<OrbitManager>();
             if (manager != null)

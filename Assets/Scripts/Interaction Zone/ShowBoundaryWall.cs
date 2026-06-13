@@ -39,8 +39,6 @@ public class BoundaryWall : MonoBehaviour
         Vector3 closestPoint = triggerCollider.ClosestPoint(hmdCamera.position);
         float distanceToWall = Vector3.Distance(hmdCamera.position, closestPoint);
 
-        Debug.Log(gameObject.name + " distance to HMD: " + distanceToWall);
-
         if (distanceToWall <= warningDistance)
             SetWallVisible(true);
         else

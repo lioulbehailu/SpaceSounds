@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class PlanetVisuals : MonoBehaviour
+public class PlanetVisualFeedback : MonoBehaviour
 {
     [Header("Setup Renderers")]
     [SerializeField] private Renderer[] targetRenderers;

@@ -1,5 +1,8 @@
-using UnityEngine;
 using FMODUnity;
+using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class SatelliteFilter : MonoBehaviour
 {
@@ -9,12 +12,21 @@ public class SatelliteFilter : MonoBehaviour
     public float transitionSpeed;
     #endregion
 
+    #region Haptic Feedback
+    [Header("SnapZone Haptics")]
+    public HapticImpulsePlayer leftPlayer;
+    public HapticImpulsePlayer rightPlayer;
+    public float snapZoneEnterAmplitude;
+    public float snapZoneEnterDuration;
+    #endregion
+
     #region Internal State
     // Where we want the filter to end up 
     private float targetValue = 0f;
     private float currentValue = 0f;
     private StudioEventEmitter activeEmitter;
-    private SatelliteLightController lightController;
+    private SatelliteFeedbackController lightController;
+    private XRBaseInteractable grabInteractable;
     #endregion
 
     #region Snap Zone Reference
@@ -24,7 +36,8 @@ public class SatelliteFilter : MonoBehaviour
     #region Connect SatelliteLightController
     void Awake()
     {
-        lightController = GetComponent<SatelliteLightController>();
+        lightController = GetComponent<SatelliteFeedbackController>();
+        grabInteractable = GetComponent<XRBaseInteractable>();
     }
     #endregion
 
@@ -44,10 +57,31 @@ public class SatelliteFilter : MonoBehaviour
     {
         if (other.CompareTag("SnapZone"))
         {
+            // Debounce check to prevent double vibrations if multiple colliders hit
+            if (CurrentSnapZone == other.gameObject) return;
+
             CurrentSnapZone = other.gameObject; // ← expose it
             activeEmitter = other.GetComponentInParent<StudioEventEmitter>();
             targetValue = 1f;
+
+            bool wasAlreadyInOrbit = (lightController != null && lightController.currentState == SatelliteFeedbackController.LightState.InOrbit);
+
             lightController.OnEnteredOrbit();
+
+            if (wasAlreadyInOrbit) return;
+
+            // Check which hand is actively grabbing the object for haptic feedback
+            if (lightController.currentState == SatelliteFeedbackController.LightState.Grabbed)
+            {
+                if (leftPlayer != null && IsGrabbedByController(leftPlayer))
+                {
+                    leftPlayer.SendHapticImpulse(snapZoneEnterAmplitude, snapZoneEnterDuration);
+                }
+                else if (rightPlayer != null && IsGrabbedByController(rightPlayer))
+                {
+                    rightPlayer.SendHapticImpulse(snapZoneEnterAmplitude, snapZoneEnterDuration);
+                }
+            }
         }
     }
 
@@ -58,6 +92,25 @@ public class SatelliteFilter : MonoBehaviour
             CurrentSnapZone = null;
             targetValue = 0f;
         }
+    }
+    #endregion
+
+    #region Grab Verification
+    // Checks if the specified player's transform matches the interactor currently selecting this object
+    private bool IsGrabbedByController(HapticImpulsePlayer controllerPlayer)
+    {
+        if (grabInteractable == null || !grabInteractable.isSelected) return false;
+
+        // Loop through all interactors currently grabbing this satellite
+        foreach (var interactor in grabInteractable.interactorsSelecting)
+        {
+            // If the interactor object is on the same GameObject (or a child) as our assigned controller player
+            if (interactor.transform.IsChildOf(controllerPlayer.transform) || controllerPlayer.transform.IsChildOf(interactor.transform))
+            {
+                return true;
+            }
+        }
+        return false;
     }
     #endregion
 }

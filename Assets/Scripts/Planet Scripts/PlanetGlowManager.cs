@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlanetManager : MonoBehaviour
+public class PlanetGlowManager : MonoBehaviour
 {
     // Static instance allows any satellite to find this manager instantly
-    public static PlanetManager Instance { get; private set; }
+    public static PlanetGlowManager Instance { get; private set; }
 
     // List tracking every active planet script in the scene
     private List<PlanetGlow> activePlanets = new List<PlanetGlow>();
