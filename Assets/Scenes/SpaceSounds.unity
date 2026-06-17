@@ -1726,7 +1726,7 @@ MonoBehaviour:
   baseHighlightMaterial: {fileID: 2100000, guid: bbd9cd881879f984ea6c1cb79ba3c8b5, type: 2}
   orbitGlowMaterial: {fileID: 2100000, guid: ff2a7283996c9564db5b203f974f9bb4, type: 2}
   inflationTarget: {fileID: 645845199}
-  inflateScaleMultiplier: 1.1
+  inflateScaleMultiplier: 1.15
   animationSpeed: 5
   intensiveGlowMultiplier: 4
   snapZone: {fileID: 332265080}
@@ -1743,7 +1743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetRenderer: {fileID: 1134840702}
-  activeIntensity: 5
+  activeIntensity: 4
   transitionSpeed: 5
 --- !u!114 &791596509
 MonoBehaviour:
@@ -4112,6 +4112,26 @@ PrefabInstance:
     - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349984063913474, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9271831
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349984063913474, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349984063913474, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.37460855
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349984063913474, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349984063913474, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -3556
       objectReference: {fileID: 0}
     - target: {fileID: 23340741358459038, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_Materials.Array.size
