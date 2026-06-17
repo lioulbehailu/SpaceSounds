@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="ParameterPreset" id="{dea98096-1cb6-4250-9e2c-d7d4d9bb205c}">
+	<object class="ParameterPreset" id="{e4b68541-f6f5-4c39-92d1-38a1496b5854}">
 		<property name="name">
-			<value>PlanetState</value>
+			<value>distorsion</value>
 		</property>
 		<relationship name="folder">
 			<destination>{205d2fce-eb73-47b7-93e3-8aceb8cf804c}</destination>
 		</relationship>
 		<relationship name="parameter">
-			<destination>{171b8b25-063b-4695-9143-e0b423bce49a}</destination>
+			<destination>{d5a454da-2d0b-4264-a00a-a0d11d33d406}</destination>
 		</relationship>
 	</object>
-	<object class="GameParameter" id="{171b8b25-063b-4695-9143-e0b423bce49a}">
-		<property name="parameterType">
-			<value>1</value>
-		</property>
-		<property name="maximum">
-			<value>4</value>
-		</property>
+	<object class="GameParameter" id="{d5a454da-2d0b-4264-a00a-a0d11d33d406}">
 		<property name="initialValue">
 			<value>0</value>
 		</property>

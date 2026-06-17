@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="ParameterPreset" id="{3ec423a3-9eb2-45d3-955b-a9b73c0a55f7}">
 		<property name="name">
-			<value>lpFilterAmt</value>
+			<value>filter</value>
 		</property>
 		<relationship name="folder">
 			<destination>{205d2fce-eb73-47b7-93e3-8aceb8cf804c}</destination>

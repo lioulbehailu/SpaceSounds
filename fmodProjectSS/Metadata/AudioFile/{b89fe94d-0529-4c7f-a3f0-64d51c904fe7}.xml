@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{b89fe94d-0529-4c7f-a3f0-64d51c904fe7}">
+		<property name="assetPath">
+			<value>Pad2_Distancer.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>26.666666666666668</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{107295d6-885c-4ed0-a216-fd12ecee83f5}</destination>
+		</relationship>
+	</object>
+</objects>
