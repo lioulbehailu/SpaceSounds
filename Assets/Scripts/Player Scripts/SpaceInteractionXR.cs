@@ -9,8 +9,58 @@ public class SpaceInteractionXR : MonoBehaviour
     private SatelliteOnOrbit grabbedSatelliteOnOrbitScript;
     private SatelliteFilter grabbedSatelliteFilterScript;
     private GameObject currentZone;
+    private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor myInteractor;
 
     #endregion
+
+    void Awake()
+    {
+        // Get the interactor component on this same controller
+        Transform nearFar = transform.Find("Near-Far Interactor");
+        myInteractor = nearFar.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor>();
+    }
+
+    void OnEnable()
+    {
+        if (myInteractor != null)
+        {
+            myInteractor.selectEntered.AddListener(HandleSelectEntered);
+            myInteractor.selectExited.AddListener(HandleSelectExited);
+        }
+    }
+
+    void OnDisable()
+    {
+        if (myInteractor != null)
+        {
+            myInteractor.selectEntered.RemoveListener(HandleSelectEntered);
+            myInteractor.selectExited.RemoveListener(HandleSelectExited);
+        }
+    }
+
+    private void HandleSelectEntered(SelectEnterEventArgs args)
+    {
+        GameObject target = args.interactableObject.transform.gameObject;
+
+        SatelliteOnOrbit satelliteCheck = target.GetComponent<SatelliteOnOrbit>();
+        PlanetLoopController planetCheck = target.GetComponent<PlanetLoopController>();
+
+        if (satelliteCheck != null) OnSatelliteGrabbed(args);
+        else if (planetCheck != null) OnPlanetTriggered(args);
+    }
+
+    private void HandleSelectExited(SelectExitEventArgs args)
+    {
+        GameObject target = args.interactableObject.transform.gameObject;
+        SatelliteOnOrbit satelliteCheck = target.GetComponent<SatelliteOnOrbit>();
+
+        // Only run satellite release logic if a satellite was actually released
+        if (satelliteCheck != null)
+        {
+            OnSatelliteReleased(args);
+        }
+    }
+
 
     void Update()
     {
@@ -48,12 +98,26 @@ public class SpaceInteractionXR : MonoBehaviour
         }
 
         grabbedRb.isKinematic = false;
+
+
+        SatelliteFlightMover mover = grabbedObject.GetComponent<SatelliteFlightMover>();
+        if (mover != null) mover.PauseFlight();
+
+        if (PlanetGlowManager.Instance != null)
+        {
+            PlanetGlowManager.Instance.SetAllPlanetsGlow(true);
+        }
     }
 
     // Called when the VR hand deselects (releases) an object
     public void OnSatelliteReleased(SelectExitEventArgs args)
     {
         if (grabbedObject == null) return;
+
+        if (PlanetGlowManager.Instance != null)
+        {
+            PlanetGlowManager.Instance.SetAllPlanetsGlow(false);
+        }
 
         grabbedRb.isKinematic = false;
 
@@ -112,7 +176,7 @@ public class SpaceInteractionXR : MonoBehaviour
             {
                 // pass false to deflate
                 visuals.SetDockingInflation(false);
-                visuals.SetGlowIntensity(false); 
+                visuals.SetGlowIntensity(false);
             }
         }
     }
