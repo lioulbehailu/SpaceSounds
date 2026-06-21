@@ -10,10 +10,11 @@ public class PlanetLoopController : MonoBehaviour
 
     private PlanetVisualFeedback planetVisuals;
 
-    [Header("Loop Color Customization")]
-    [SerializeField] private Color loop1Color = new Color(0f, 0.6f, 1f, 0.4f); // Transparent Blue
-    [SerializeField] private Color loop2Color = new Color(1f, 0.3f, 0f, 0.4f); // Transparent Orange
-    [SerializeField] private Color loop3Color = new Color(0.6f, 0f, 1f, 0.4f); // Transparent Purple
+    [Header("Loop Settings")]
+    [SerializeField] private Color loopMuteColor = new Color(0f, 0f, 0f, 0.4f);
+    [SerializeField] private Material loop1Material;
+    [SerializeField] private Material loop2Material;
+    [SerializeField] private Material loop3Material;
 
     [Header("Rotation Settings")]
     [SerializeField] private float rotationSpeed = 15f;
@@ -43,6 +44,9 @@ public class PlanetLoopController : MonoBehaviour
             emitter.SetParameter("PlanetState", 0);
             emitter.Play();
         }
+
+        ApplyVisualState(0);
+
     }
 
     void Update()
@@ -114,7 +118,7 @@ public class PlanetLoopController : MonoBehaviour
                 isRotating = false;
                 if (planetVisuals != null)
                 {
-                    planetVisuals.ResetAudioColor(); // reset color only
+                    planetVisuals.SetAudioLoopColor(loopMuteColor);
                 }
                 break;
 
@@ -122,7 +126,7 @@ public class PlanetLoopController : MonoBehaviour
                 isRotating = true;
                 if (planetVisuals != null)
                 {
-                    planetVisuals.SetAudioLoopColor(loop1Color); // change color
+                    planetVisuals.SetAudioLoopTexture(loop1Material);
                 }
                 break;
 
@@ -130,7 +134,7 @@ public class PlanetLoopController : MonoBehaviour
                 isRotating = true;
                 if (planetVisuals != null)
                 {
-                    planetVisuals.SetAudioLoopColor(loop2Color); // change color
+                    planetVisuals.SetAudioLoopTexture(loop2Material);
                 }
                 break;
 
@@ -138,7 +142,7 @@ public class PlanetLoopController : MonoBehaviour
                 isRotating = true;
                 if (planetVisuals != null)
                 {
-                    planetVisuals.SetAudioLoopColor(loop3Color); // change color
+                    planetVisuals.SetAudioLoopTexture(loop3Material);
                 }
                 break;
         }

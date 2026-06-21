@@ -1,61 +1,54 @@
 using UnityEngine;
-
 [RequireComponent(typeof(ParticleSystem))]
 public class PathSparkleEmitter : MonoBehaviour
 {
     [SerializeField] private SatelliteFlightPath path;
-
     [Header("Density")]
-    [SerializeField] private int sparklesPerMeter = 30; // density-based, not fixed count
-    [SerializeField] private int layers = 2;             // multiple passes = denser cloud look
-
-    [Header("Look")]
-    [SerializeField] private Vector2 sparkleSizeRange = new Vector2(0.002f, 0.05f);
+    [SerializeField] private int sparklesPerFrame;
     [SerializeField] private float positionJitter = 0.08f;
+    [SerializeField] private Vector2 sparkleSizeRange = new Vector2(0.002f, 0.05f);
     [SerializeField] private Vector2 alphaRange = new Vector2(0.15f, 0.6f);
     [SerializeField] private Color baseColor = Color.white;
+    [SerializeField] private float travelSpeed = 1.5f; // match satellite speed
 
     private ParticleSystem ps;
 
     void Start()
     {
         ps = GetComponent<ParticleSystem>();
-        SpawnStaticSparkles();
     }
 
-    private void SpawnStaticSparkles()
+    void Update()
     {
-        if (path == null) return;
+        if (path == null || ps == null) return;
 
         var emitParams = new ParticleSystem.EmitParams();
-        int waypointCount = path.GetWaypointCount();
+        Vector3 dir = path.GetPathDirection();
+        float pathLength = path.GetTotalLength();
+        float fullLifetime = pathLength / travelSpeed;
 
-        for (int layer = 0; layer < layers; layer++)
+        for (int i = 0; i < sparklesPerFrame; i++)
         {
-            for (int i = 0; i < waypointCount - 1; i++)
-            {
-                float segmentLength = path.GetSegmentLength(i);
-                int sparkleCount = Mathf.CeilToInt(segmentLength * sparklesPerMeter);
+            int waypointIndex = Random.Range(0, path.GetWaypointCount() - 1);
+            float t = Random.Range(0f, 1f);
+            Vector3 pos = path.GetPosition(waypointIndex, t);
+            pos += Random.insideUnitSphere * positionJitter;
 
-                for (int j = 0; j < sparkleCount; j++)
-                {
-                    float t = Random.Range(0f, 1f); // random along segment, not evenly spaced
-                    Vector3 pos = path.GetPosition(i, t);
+            // Calculate how far along the path this particle spawns (0=start, 1=end)
+            float segmentStart = 0f;
+            for (int s = 0; s < waypointIndex; s++)
+                segmentStart += path.GetSegmentLength(s);
+            segmentStart += t * path.GetSegmentLength(waypointIndex);
+            float distanceRemaining = pathLength - segmentStart;
+            float adjustedLifetime = distanceRemaining / travelSpeed;
 
-                    // Wider jitter per layer creates a soft "cloud" cross-section
-                    // instead of a thin hard line
-                    pos += Random.insideUnitSphere * positionJitter;
-
-                    emitParams.position = pos;
-                    emitParams.startSize = Random.Range(sparkleSizeRange.x, sparkleSizeRange.y);
-                    emitParams.startLifetime = 999f;
-
-                    float alpha = Random.Range(alphaRange.x, alphaRange.y);
-                    emitParams.startColor = new Color(baseColor.r, baseColor.g, baseColor.b, alpha);
-
-                    ps.Emit(emitParams, 1);
-                }
-            }
+            emitParams.position = pos;
+            emitParams.velocity = dir * travelSpeed;
+            emitParams.startSize = Random.Range(sparkleSizeRange.x, sparkleSizeRange.y);
+            emitParams.startLifetime = adjustedLifetime;
+            float alpha = Random.Range(alphaRange.x, alphaRange.y);
+            emitParams.startColor = new Color(baseColor.r, baseColor.g, baseColor.b, alpha);
+            ps.Emit(emitParams, 1);
         }
     }
 }
