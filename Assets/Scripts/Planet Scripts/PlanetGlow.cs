@@ -30,20 +30,24 @@ public class PlanetGlow : MonoBehaviour
             // planet glows without affecting other planets using the same shader.
             targetMaterial = planetRenderer.material;
 
+            Debug.Log($"{gameObject.name} material: {targetMaterial.name}, has property: {targetMaterial.HasProperty(glowIntensityID)}");
+
             // Ensure it starts completely off
             targetMaterial.SetFloat(glowIntensityID, 0f);
         }
         else
         {
-            Debug.LogError($"PlanetGlow on {gameObject.name} is missing a assigned Planet Renderer!", this);
+            Debug.LogError($"PlanetGlow on {gameObject.name}: planetRenderer is NULL!");
         }
     }
 
     void Update()
     {
-        if (targetMaterial == null) return;
+        if (planetRenderer == null) return;
 
-        // 3. Smoothly interpolate the intensity to prevent sudden visual snapping
+        // Always use the current material on the renderer
+        targetMaterial = planetRenderer.material;
+
         currentGlow = Mathf.Lerp(currentGlow, targetGlow, Time.deltaTime * transitionSpeed);
         targetMaterial.SetFloat(glowIntensityID, currentGlow);
     }

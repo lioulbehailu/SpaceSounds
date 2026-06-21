@@ -118,71 +118,13 @@ public class PlanetVisualFeedback : MonoBehaviour
     {
         isAudioColorActive = false;
         activeAudioColor = Color.clear;
-        if (!isDockingActive) RemoveColorOverlay();
 
         foreach (Renderer ren in targetRenderers)
         {
             if (ren == null) continue;
-            var mats = ren.sharedMaterials;
+            var mats = ren.materials;  
             mats[0] = loopMaterial;
-            ren.sharedMaterials = mats;
-        }
-    }
-
-    public void SetAudioLoopColor(Color loopColor)
-    {
-        activeAudioColor = loopColor;
-        isAudioColorActive = true;
-
-        foreach (Renderer ren in targetRenderers)
-        {
-            if (ren == null) continue;
-            var mats = ren.sharedMaterials;
-            mats[0] = originalMaterial;
-            ren.sharedMaterials = mats;
-        }
-
-        if (!isDockingActive)
-            ApplyColorOverlay(loopColor); 
-    }
-
-    private void ApplyColorOverlay(Color newColor)
-    {
-        if (runtimeMaterialInstance != null)
-        {
-            runtimeMaterialInstance.SetColor("_BaseColor", newColor);
-            runtimeMaterialInstance.EnableKeyword("_EMISSION");
-
-            float opacity = newColor.a;
-            Color dimEmission = new Color(newColor.r, newColor.g, newColor.b) * opacity * 0.5f;
-            runtimeMaterialInstance.SetColor("_EmissionColor", dimEmission);
-        }
-
-        foreach (Renderer ren in targetRenderers)
-        {
-            if (ren == null) continue;
-            List<Material> mats = new List<Material>(ren.sharedMaterials);
-            if (!mats.Contains(runtimeMaterialInstance))
-            {
-                mats.Add(runtimeMaterialInstance);
-                ren.sharedMaterials = mats.ToArray();
-            }
-        }
-    }
-
-    private void RemoveColorOverlay()
-    {
-        foreach (Renderer ren in targetRenderers)
-        {
-            if (ren != null)
-            {
-                List<Material> mats = new List<Material>(ren.sharedMaterials);
-                if (mats.Contains(runtimeMaterialInstance))
-                {
-                    mats.Remove(runtimeMaterialInstance);
-                    ren.sharedMaterials = mats.ToArray();
-                }
-            }
+            ren.materials = mats;      
         }
     }
 

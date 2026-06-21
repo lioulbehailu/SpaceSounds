@@ -104,6 +104,8 @@ public class SpaceInteractionXR : MonoBehaviour
 
         if (PlanetGlowManager.Instance != null)
             PlanetGlowManager.Instance.SetAllPlanetsGlow(true);
+        else
+            Debug.LogWarning("PlanetGlowManager instance is NULL!");
     }
 
     public void OnSatelliteReleased(SelectExitEventArgs args)

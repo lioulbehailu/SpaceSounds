@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1066087199274313497, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: activeIntensity
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3268500885286240396, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: m_Name
       value: Icy
@@ -196,6 +200,18 @@ PrefabInstance:
       value: -1360060811
       objectReference: {fileID: 0}
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: leftPlayer
+      value: 
+      objectReference: {fileID: 976027889}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: rightPlayer
+      value: 
+      objectReference: {fileID: 673891355}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: loop0Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 59a778beb126b034d827184278e5d11a, type: 2}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loop1Material
       value: 
       objectReference: {fileID: 2100000, guid: 11581cefe25e69f46aa3adc2a565df1c, type: 2}
@@ -210,6 +226,10 @@ PrefabInstance:
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loopMuteColor.a
       value: 0.3529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: preselectAmplitude
+      value: 0.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5412,6 +5432,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1066087199274313497, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: activeIntensity
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3268500885286240396, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: m_Name
       value: Earth
@@ -5437,6 +5461,18 @@ PrefabInstance:
       value: 907981738
       objectReference: {fileID: 0}
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: leftPlayer
+      value: 
+      objectReference: {fileID: 976027889}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: rightPlayer
+      value: 
+      objectReference: {fileID: 673891355}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: loop0Material
+      value: 
+      objectReference: {fileID: 2100000, guid: b40cd3a9c14bf4945892a53a92fd9a8c, type: 2}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loop1Material
       value: 
       objectReference: {fileID: 2100000, guid: 1d5d22e0b70b2c74e90176c4815ee980, type: 2}
@@ -5451,6 +5487,10 @@ PrefabInstance:
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loopMuteColor.a
       value: 0.3529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: preselectAmplitude
+      value: 0.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5943,6 +5983,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 064cda733cc1e3747afd65b0e443c708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &673891355 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4238984354899526239, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 673891348}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128797010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b734f2bd29eeddd4d85afb0c266228c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &690434496
@@ -6441,6 +6492,17 @@ MonoBehaviour:
   lineResolution: 20
   curveHeight: 0.3
   lineRenderer: {fileID: 1273173979}
+--- !u!114 &976027889 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5967689310316253315, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 673891348}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976027876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b734f2bd29eeddd4d85afb0c266228c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &993345868
 GameObject:
   m_ObjectHideFlags: 0
@@ -6661,10 +6723,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1066087199274313497, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: activeIntensity
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3268500885286240396, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: m_Name
       value: Mars
       objectReference: {fileID: 0}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: leftPlayer
+      value: 
+      objectReference: {fileID: 976027889}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: rightPlayer
+      value: 
+      objectReference: {fileID: 673891355}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: loop0Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 882220b7eda330e48aa5a72a198156aa, type: 2}
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loop1Material
       value: 
@@ -6680,6 +6758,10 @@ PrefabInstance:
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loopMuteColor.a
       value: 0.3529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: preselectAmplitude
+      value: 0.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6738,6 +6820,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1066087199274313497, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: activeIntensity
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3268500885286240396, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: m_Name
       value: Neptune
@@ -6763,6 +6849,18 @@ PrefabInstance:
       value: -1134767691
       objectReference: {fileID: 0}
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: leftPlayer
+      value: 
+      objectReference: {fileID: 976027889}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: rightPlayer
+      value: 
+      objectReference: {fileID: 673891355}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: loop0Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 31ffe1f605e09e641aa86cf649b22a6a, type: 2}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loop1Material
       value: 
       objectReference: {fileID: 2100000, guid: e4aa46128ba6fa94589d06039e6db857, type: 2}
@@ -6777,6 +6875,10 @@ PrefabInstance:
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loopMuteColor.a
       value: 0.3529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: preselectAmplitude
+      value: 0.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6834,7 +6936,8 @@ MonoBehaviour:
   waypoints:
   - {fileID: 1223612781}
   - {fileID: 1222180707}
-  satellitePrefab: {fileID: 8365997915174629865, guid: c07b522f2993237438149df20c5c6573, type: 3}
+  satellitePrefabs:
+  - {fileID: 9149732742006226366, guid: c07b522f2993237438149df20c5c6573, type: 3}
   spawnIntervalMin: 2
   spawnIntervalMax: 8
   travelSpeed: 0.6
@@ -7142,6 +7245,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1066087199274313497, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: activeIntensity
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3268500885286240396, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: m_Name
       value: Moon
@@ -7167,6 +7274,14 @@ PrefabInstance:
       value: -986138165
       objectReference: {fileID: 0}
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: leftPlayer
+      value: 
+      objectReference: {fileID: 976027889}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: rightPlayer
+      value: 
+      objectReference: {fileID: 673891355}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loop1Texture
       value: 
       objectReference: {fileID: 2800000, guid: aa1f157b56022c74cb9cc84a64e246a9, type: 3}
@@ -7178,6 +7293,10 @@ PrefabInstance:
       propertyPath: loop3Texture
       value: 
       objectReference: {fileID: 2800000, guid: d65dc1b313ae1f441ac510ee8315c061, type: 3}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: loop0Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 3f8ce88fc79c75349818e68c53e90630, type: 2}
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loop1Material
       value: 
@@ -7193,6 +7312,10 @@ PrefabInstance:
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loopMuteColor.a
       value: 0.3529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: preselectAmplitude
+      value: 0.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7494,6 +7617,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1066087199274313497, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: activeIntensity
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3268500885286240396, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: m_Name
       value: Jupiter
@@ -7523,6 +7650,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: d6827b77946f7764a901e2392cf1e729, type: 2}
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: leftPlayer
+      value: 
+      objectReference: {fileID: 976027889}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: rightPlayer
+      value: 
+      objectReference: {fileID: 673891355}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: loop0Material
+      value: 
+      objectReference: {fileID: 2100000, guid: d6827b77946f7764a901e2392cf1e729, type: 2}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loop1Material
       value: 
       objectReference: {fileID: 2100000, guid: fc89396c37666bf4796e6da4cb7c3080, type: 2}
@@ -7537,6 +7676,10 @@ PrefabInstance:
     - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
       propertyPath: loopMuteColor.a
       value: 0.3529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 4792011132390044049, guid: d5774a7caa9251b47a9203b2799613ff, type: 3}
+      propertyPath: preselectAmplitude
+      value: 0.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

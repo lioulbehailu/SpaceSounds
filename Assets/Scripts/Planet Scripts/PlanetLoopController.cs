@@ -11,7 +11,7 @@ public class PlanetLoopController : MonoBehaviour
     private PlanetVisualFeedback planetVisuals;
 
     [Header("Loop Settings")]
-    [SerializeField] private Color loopMuteColor = new Color(0f, 0f, 0f, 0.4f);
+    [SerializeField] private Material loop0Material;
     [SerializeField] private Material loop1Material;
     [SerializeField] private Material loop2Material;
     [SerializeField] private Material loop3Material;
@@ -118,7 +118,7 @@ public class PlanetLoopController : MonoBehaviour
                 isRotating = false;
                 if (planetVisuals != null)
                 {
-                    planetVisuals.SetAudioLoopColor(loopMuteColor);
+                    planetVisuals.SetAudioLoopTexture(loop0Material);
                 }
                 break;
 

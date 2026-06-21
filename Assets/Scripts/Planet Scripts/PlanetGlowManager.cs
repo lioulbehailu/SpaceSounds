@@ -15,6 +15,12 @@ public class PlanetGlowManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    void Start()
+    {
+        foreach (var p in FindObjectsByType<PlanetGlow>(FindObjectsSortMode.None))
+            RegisterPlanet(p);
+    }
+
     // Planets automatically sign themselves up when they spawn
     public void RegisterPlanet(PlanetGlow planet)
     {
@@ -35,6 +41,8 @@ public class PlanetGlowManager : MonoBehaviour
     // The core function called by any satellite
     public void SetAllPlanetsGlow(bool shouldGlow)
     {
+        Debug.Log($"SetAllPlanetsGlow({shouldGlow}) — planet count: {activePlanets.Count}");
+
         foreach (PlanetGlow planet in activePlanets)
         {
             if (planet != null)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SatelliteFlightPath : MonoBehaviour
@@ -7,13 +8,16 @@ public class SatelliteFlightPath : MonoBehaviour
     public Transform[] waypoints;
 
     [Header("Spawn Settings")]
-    public GameObject satellitePrefab;
+    public GameObject[] satellitePrefabs;
     public float spawnIntervalMin = 3f;
     public float spawnIntervalMax = 6f;
     private float spawnInterval;
     public float travelSpeed = 1.5f;       // units per second
 
     private float spawnTimer = 0f;
+
+    private List<int> shuffledIndices = new List<int>();
+    private int shufflePos = 0;
 
     void Start()
     {
@@ -22,7 +26,7 @@ public class SatelliteFlightPath : MonoBehaviour
 
     private void PrewarmSatellites()
     {
-        if (satellitePrefab == null || waypoints.Length < 2) return;
+        if (satellitePrefabs == null || satellitePrefabs.Length == 0 || waypoints.Length < 2) return;
 
         float totalLength = GetTotalLength();
         float distanceTravelled = 0f;
@@ -48,7 +52,7 @@ public class SatelliteFlightPath : MonoBehaviour
                 accumulated += segLen;
             }
 
-            GameObject sat = Instantiate(satellitePrefab, GetPosition(waypointIndex, progress), Random.rotation);
+            GameObject sat = Instantiate(GetRandomPrefab(), GetPosition(waypointIndex, progress), Random.rotation);
             SatelliteFlightMover mover = sat.GetComponent<SatelliteFlightMover>();
             if (mover == null)
                 mover = sat.AddComponent<SatelliteFlightMover>();
@@ -71,9 +75,9 @@ public class SatelliteFlightPath : MonoBehaviour
 
     private void SpawnSatellite()
     {
-        if (satellitePrefab == null || waypoints.Length < 2) return;
+        if (satellitePrefabs == null || satellitePrefabs.Length == 0 || waypoints.Length < 2) return;
 
-        GameObject sat = Instantiate(satellitePrefab, waypoints[0].position, Random.rotation);
+        GameObject sat = Instantiate(GetRandomPrefab(), waypoints[0].position, Random.rotation);
 
         SatelliteFlightMover mover = sat.GetComponent<SatelliteFlightMover>();
         if (mover == null)
@@ -117,6 +121,29 @@ public class SatelliteFlightPath : MonoBehaviour
     {
         if (waypoints.Length < 2) return Vector3.forward;
         return (waypoints[waypoints.Length - 1].position - waypoints[0].position).normalized;
+    }
+
+    private GameObject GetRandomPrefab()
+    {
+        if (satellitePrefabs == null || satellitePrefabs.Length == 0) return null;
+
+        // Refill and reshuffle when we've used all
+        if (shufflePos >= shuffledIndices.Count)
+        {
+            shuffledIndices.Clear();
+            for (int i = 0; i < satellitePrefabs.Length; i++)
+                shuffledIndices.Add(i);
+
+            // Fisher-Yates shuffle
+            for (int i = shuffledIndices.Count - 1; i > 0; i--)
+            {
+                int j = Random.Range(0, i + 1);
+                (shuffledIndices[i], shuffledIndices[j]) = (shuffledIndices[j], shuffledIndices[i]);
+            }
+            shufflePos = 0;
+        }
+
+        return satellitePrefabs[shuffledIndices[shufflePos++]];
     }
 
     void OnDrawGizmos()
