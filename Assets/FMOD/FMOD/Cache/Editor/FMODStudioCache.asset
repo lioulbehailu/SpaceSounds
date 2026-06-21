@@ -29,30 +29,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 14000
---- !u!114 &-8169483170830173909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Planet 4_arp/delay
-  m_EditorClassIdentifier: 
-  Name: delay
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1723129954
-    data2: 3998552072
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
 --- !u!114 &-8119945241353640056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,30 +309,6 @@ MonoBehaviour:
   - Name: Desktop
     Value: 506464
   Exists: 1
---- !u!114 &-5406348956197626839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Planet 3_drums/delay
-  m_EditorClassIdentifier: 
-  Name: delay
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1723129954
-    data2: 3998552072
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
 --- !u!114 &-5405938502290709302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,7 +459,6 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: -184677464581483347}
-  - {fileID: -912563180878228089}
   - {fileID: -399621399304303931}
   - {fileID: 5325245997237351129}
   - {fileID: 2471722233248239678}
@@ -542,38 +493,13 @@ MonoBehaviour:
   Parameters:
   - {fileID: 5818636199801694570}
   - {fileID: 4243249393018380829}
-  - {fileID: -3437509236116972313}
   - {fileID: -6879565715260894312}
   - {fileID: 951390699709197521}
   - {fileID: -986935911676175526}
   - {fileID: -2480479564109866490}
   MinDistance: 1
   MaxDistance: 20
-  Length: 26668
---- !u!114 &-3437509236116972313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Planet 5_keys/delay
-  m_EditorClassIdentifier: 
-  Name: delay
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1723129954
-    data2: 3998552072
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
+  Length: 26683
 --- !u!114 &-3125446832413551565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,7 +647,6 @@ MonoBehaviour:
   Parameters:
   - {fileID: 8670160385880467386}
   - {fileID: -5405938502290709302}
-  - {fileID: -459213348170059159}
   - {fileID: -7160784812038167766}
   - {fileID: 7700942494076062828}
   - {fileID: -8119945241353640056}
@@ -916,7 +841,7 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639173221090655313
+  lastModified: 639176861632241992
   FileSizes: []
   Exists: 1
 --- !u!114 &-986935911676175526
@@ -940,30 +865,6 @@ MonoBehaviour:
     data1: 2666655443
     data2: 156133708
   Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-912563180878228089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Planet 6_plucks/delay
-  m_EditorClassIdentifier: 
-  Name: delay
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1723129954
-    data2: 3998552072
-  Type: 0
   IsGlobal: 0
   Labels: []
   Exists: 1
@@ -1030,30 +931,6 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 876
-  Exists: 1
---- !u!114 &-459213348170059159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Planet 1_pad/delay
-  m_EditorClassIdentifier: 
-  Name: delay
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1723129954
-    data2: 3998552072
-  Type: 0
-  IsGlobal: 0
-  Labels: []
   Exists: 1
 --- !u!114 &-399621399304303931
 MonoBehaviour:
@@ -1160,7 +1037,6 @@ MonoBehaviour:
   - {fileID: -8088052388309296073}
   - {fileID: 3328481347321588043}
   - {fileID: -6962537698110769590}
-  - {fileID: -5406348956197626839}
   - {fileID: 2281921756670909192}
   - {fileID: -3067819859084107336}
   MinDistance: 1
@@ -1194,7 +1070,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 182705609542309185}
   cacheVersion: 131859
-  cacheTime: 639173221090689601
+  cacheTime: 639176861632271968
   SerializableEventsDict:
   - key: event:/Planet 3_drums
     index: 0
@@ -1223,10 +1099,10 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639173221090689601
+  lastModified: 639176861632271968
   FileSizes:
   - Name: 
-    Value: 1286
+    Value: 1240
   Exists: 1
 --- !u!114 &223641371433923606
 MonoBehaviour:
@@ -1770,7 +1646,6 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: -8169483170830173909}
   - {fileID: -5892181861424607840}
   - {fileID: -2736360639260558945}
   - {fileID: -5607466807448100800}

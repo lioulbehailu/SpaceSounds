@@ -5150,6 +5150,7 @@ GameObject:
   - component: {fileID: 1688482980611061571}
   - component: {fileID: 3508968018180161390}
   - component: {fileID: 8698670916817656473}
+  - component: {fileID: 3544077374407248977}
   m_Layer: 3
   m_Name: SatelliteFilter
   m_TagString: Satellite
@@ -5452,7 +5453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cbe5ca2ce003549af1d7ac0be77228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parameterName: lpFilterAmt
+  parameterName: filter
   transitionSpeed: 2
   leftPlayer: {fileID: 0}
   rightPlayer: {fileID: 0}
@@ -5488,3 +5489,16 @@ MonoBehaviour:
   easeInSpeed: 4
   fadeInDistance: 5
   fadeOutDistance: 5
+--- !u!114 &3544077374407248977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9149732742006226366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61b7c3c2d8430942b14a39bd48f673d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  satelliteCheatSheetSprite: {fileID: 21300000, guid: 8984c76dbdb6e9c49bb51a90af0472a2, type: 3}

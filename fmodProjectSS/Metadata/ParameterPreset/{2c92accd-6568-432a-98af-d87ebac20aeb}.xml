@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="ParameterPreset" id="{2c92accd-6568-432a-98af-d87ebac20aeb}">
 		<property name="name">
-			<value>delay</value>
+			<value>--</value>
 		</property>
 		<relationship name="folder">
 			<destination>{205d2fce-eb73-47b7-93e3-8aceb8cf804c}</destination>

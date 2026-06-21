@@ -369,10 +369,10 @@
 	</object>
 	<object class="TremoloEffect" id="{f96fcd14-7ac2-41a4-8dfd-861c60830df8}">
 		<property name="frequency">
-			<value>4.4000001</value>
+			<value>4.80000019</value>
 		</property>
 		<property name="depth">
-			<value>0.699999988</value>
+			<value>0.579999983</value>
 		</property>
 		<property name="shape">
 			<value>0.444999993</value>
