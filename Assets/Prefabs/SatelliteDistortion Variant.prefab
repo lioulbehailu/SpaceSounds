@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1645248391973915493
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 473290754342272650, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473290754342272650, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473290754342272650, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473290754342272650, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.642739
+      objectReference: {fileID: 0}
+    - target: {fileID: 473290754342272650, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.35751513
+      objectReference: {fileID: 0}
+    - target: {fileID: 473290754342272650, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5524606
+      objectReference: {fileID: 0}
+    - target: {fileID: 473290754342272650, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.39224595
+      objectReference: {fileID: 0}
+    - target: {fileID: 473290754342272650, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 473290754342272650, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 82.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 473290754342272650, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 64.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688482980611061571, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: parameterName
+      value: distorsion
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544077374407248977, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: bodyText
+      value: Change the tone of the sound on the planet. Some planets make the sound
+        softer and deeper, while others make it thinner and sharper.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544077374407248977, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: headerText
+      value: FILTER MODIFIER
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544077374407248977, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: cheatSheetText
+      value: Change the tone of the sound on the planet. Some planets make the sound
+        softer and deeper, while others make it thinner and sharper.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544077374407248977, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: instruction1Text
+      value: 'A: Hide'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544077374407248977, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: instruction2Text
+      value: 'B: Get Satellite'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544077374407248977, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: borderGlowColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544077374407248977, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: borderGlowColor.g
+      value: 0.92341846
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544077374407248977, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: borderGlowColor.r
+      value: 0.6094339
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149732742006226366, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      propertyPath: m_Name
+      value: SatelliteDistortion Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3544077374407248977, guid: c07b522f2993237438149df20c5c6573, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9149732742006226366, guid: c07b522f2993237438149df20c5c6573, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5898244979396274528}
+  m_SourcePrefab: {fileID: 100100000, guid: c07b522f2993237438149df20c5c6573, type: 3}
+--- !u!1 &7507352975965812443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9149732742006226366, guid: c07b522f2993237438149df20c5c6573, type: 3}
+  m_PrefabInstance: {fileID: 1645248391973915493}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5898244979396274528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7507352975965812443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61b7c3c2d8430942b14a39bd48f673d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  satelliteCheatSheetSprite: {fileID: 21300000, guid: b290b4a1a47e83f49a69c7fb12792edb, type: 3}

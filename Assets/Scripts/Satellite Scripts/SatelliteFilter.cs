@@ -1,5 +1,6 @@
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -73,14 +74,10 @@ public class SatelliteFilter : MonoBehaviour
             // Check which hand is actively grabbing the object for haptic feedback
             if (lightController.currentState == SatelliteFeedbackController.LightState.Grabbed)
             {
-                if (leftPlayer != null && IsGrabbedByController(leftPlayer))
-                {
-                    leftPlayer.SendHapticImpulse(snapZoneEnterAmplitude, snapZoneEnterDuration);
-                }
-                else if (rightPlayer != null && IsGrabbedByController(rightPlayer))
-                {
-                    rightPlayer.SendHapticImpulse(snapZoneEnterAmplitude, snapZoneEnterDuration);
-                }
+                if (GetLeftPlayer() != null && IsGrabbedByController(GetLeftPlayer()))
+                    GetLeftPlayer().SendHapticImpulse(snapZoneEnterAmplitude, snapZoneEnterDuration);
+                else if (GetRightPlayer() != null && IsGrabbedByController(GetRightPlayer()))
+                    GetRightPlayer().SendHapticImpulse(snapZoneEnterAmplitude, snapZoneEnterDuration);
             }
         }
     }
@@ -113,4 +110,26 @@ public class SatelliteFilter : MonoBehaviour
         return false;
     }
     #endregion
+
+    private HapticImpulsePlayer GetLeftPlayer()
+    {
+        if (leftPlayer == null)
+        {
+            var left = GameObject.Find("Left Controller");
+            if (left != null) leftPlayer = left.GetComponent<HapticImpulsePlayer>()
+                                         ?? left.GetComponentInChildren<HapticImpulsePlayer>();
+        }
+        return leftPlayer;
+    }
+
+    private HapticImpulsePlayer GetRightPlayer()
+    {
+        if (rightPlayer == null)
+        {
+            var right = GameObject.Find("Right Controller");
+            if (right != null) rightPlayer = right.GetComponent<HapticImpulsePlayer>()
+                                           ?? right.GetComponentInChildren<HapticImpulsePlayer>();
+        }
+        return rightPlayer;
+    }
 }

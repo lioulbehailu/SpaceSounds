@@ -50,4 +50,14 @@ public class BufferZone : MonoBehaviour
         Debug.Log($"[BufferZone] Success: {other.name} left the airspace unattached. Destroying.");
         Destroy(other.gameObject);
     }
+
+    void OnDrawGizmos()
+    {
+        BoxCollider col = GetComponent<BoxCollider>();
+        if (col == null) return;
+
+        Gizmos.color = Color.red;
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.DrawWireCube(col.center, col.size);
+    }
 }

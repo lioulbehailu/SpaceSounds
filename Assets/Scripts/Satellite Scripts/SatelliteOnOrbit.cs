@@ -9,6 +9,7 @@ public class SatelliteOnOrbit : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private float pathSnapDistance = 0.5f;
     [SerializeField] private float reentryCheckInterval = 0.1f; // don't check every single frame, throttle it
+    public float GetSnapDistance() => pathSnapDistance;
 
     private float reentryCheckTimer = 0f;
 
@@ -110,7 +111,7 @@ public class SatelliteOnOrbit : MonoBehaviour
 
     private void CheckForPathReentry()
     {
-        SatelliteFlightPath[] allPaths = FindObjectsOfType<SatelliteFlightPath>();
+        SatelliteFlightPath[] allPaths = FindObjectsByType<SatelliteFlightPath>(FindObjectsSortMode.None);
 
         SatelliteFlightPath bestPath = null;
         int bestWaypoint = 0;

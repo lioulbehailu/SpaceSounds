@@ -31,6 +31,7 @@ public class PlanetVisualFeedback : MonoBehaviour
     private Color activeAudioColor = Color.clear;
     private bool isAudioColorActive = false;
     private bool isDockingActive = false;
+    private Material originalMaterial;
 
     // OrbitGlow cache variables
     private Color originalGlowColor;
@@ -63,6 +64,9 @@ public class PlanetVisualFeedback : MonoBehaviour
             targetGlowColor = originalGlowColor;
             runtimeOrbitMaterial.SetColor("_EmissionColor", Color.black);
         }
+
+        if (targetRenderers != null && targetRenderers.Length > 0 && targetRenderers[0] != null)
+            originalMaterial = targetRenderers[0].sharedMaterials[0];
     }
 
     void Update()
@@ -90,14 +94,6 @@ public class PlanetVisualFeedback : MonoBehaviour
         else
         {
             targetScale = originalScale; // Deflate
-            if (isAudioColorActive)
-            {
-                ApplyColorOverlay(activeAudioColor); // Restore the playing track's color!
-            }
-            else
-            {
-                RemoveColorOverlay(); // Only completely strip if audio is muted (State 0)
-            }
         }
     }
 
@@ -118,67 +114,17 @@ public class PlanetVisualFeedback : MonoBehaviour
         }
     }
 
-    public void SetAudioLoopColor(Color loopColor)
-    {
-        activeAudioColor = loopColor;
-        isAudioColorActive = true;
-        if (!isDockingActive)
-        {
-            ApplyColorOverlay(loopColor);
-        }
-    }
-
-    public void ResetAudioColor()
+    public void SetAudioLoopTexture(Material loopMaterial)
     {
         isAudioColorActive = false;
         activeAudioColor = Color.clear;
 
-        if (!isDockingActive)
-        {
-            RemoveColorOverlay();
-        }
-    }
-
-    private void ApplyColorOverlay(Color newColor)
-    {
-        if (runtimeMaterialInstance != null)
-        {
-            runtimeMaterialInstance.SetColor("_BaseColor", newColor);
-            runtimeMaterialInstance.EnableKeyword("_EMISSION");
-
-            // Soft ambient glow calculations using the color's alpha channel
-            float opacity = newColor.a;
-            Color dimEmission = new Color(newColor.r, newColor.g, newColor.b) * opacity * 0.5f;
-            runtimeMaterialInstance.SetColor("_EmissionColor", dimEmission);
-        }
-
         foreach (Renderer ren in targetRenderers)
         {
-            if (ren != null)
-            {
-                List<Material> mats = new List<Material>(ren.sharedMaterials);
-                if (!mats.Contains(runtimeMaterialInstance))
-                {
-                    mats.Add(runtimeMaterialInstance);
-                    ren.sharedMaterials = mats.ToArray();
-                }
-            }
-        }
-    }
-
-    private void RemoveColorOverlay()
-    {
-        foreach (Renderer ren in targetRenderers)
-        {
-            if (ren != null)
-            {
-                List<Material> mats = new List<Material>(ren.sharedMaterials);
-                if (mats.Contains(runtimeMaterialInstance))
-                {
-                    mats.Remove(runtimeMaterialInstance);
-                    ren.sharedMaterials = mats.ToArray();
-                }
-            }
+            if (ren == null) continue;
+            var mats = ren.materials;  
+            mats[0] = loopMaterial;
+            ren.materials = mats;      
         }
     }
 

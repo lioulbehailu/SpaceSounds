@@ -10,12 +10,10 @@ public class SpaceInteractionXR : MonoBehaviour
     private SatelliteFilter grabbedSatelliteFilterScript;
     private GameObject currentZone;
     private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor myInteractor;
-
     #endregion
 
     void Awake()
     {
-        // Get the interactor component on this same controller
         Transform nearFar = transform.Find("Near-Far Interactor");
         myInteractor = nearFar.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor>();
     }
@@ -41,10 +39,8 @@ public class SpaceInteractionXR : MonoBehaviour
     private void HandleSelectEntered(SelectEnterEventArgs args)
     {
         GameObject target = args.interactableObject.transform.gameObject;
-
         SatelliteOnOrbit satelliteCheck = target.GetComponent<SatelliteOnOrbit>();
         PlanetLoopController planetCheck = target.GetComponent<PlanetLoopController>();
-
         if (satelliteCheck != null) OnSatelliteGrabbed(args);
         else if (planetCheck != null) OnPlanetTriggered(args);
     }
@@ -53,21 +49,22 @@ public class SpaceInteractionXR : MonoBehaviour
     {
         GameObject target = args.interactableObject.transform.gameObject;
         SatelliteOnOrbit satelliteCheck = target.GetComponent<SatelliteOnOrbit>();
-
-        // Only run satellite release logic if a satellite was actually released
-        if (satelliteCheck != null)
-        {
-            OnSatelliteReleased(args);
-        }
+        if (satelliteCheck != null) OnSatelliteReleased(args);
     }
-
 
     void Update()
     {
         if (grabbedObject != null)
         {
-            GameObject newZone = grabbedSatelliteFilterScript?.CurrentSnapZone;
+            // Path glow check
+            if (PathGlowyLine.Instance != null)
+            {
+                bool near = IsSatelliteNearPath(grabbedObject);
+                PathGlowyLine.Instance.SetGlowActive(near);
+            }
 
+            // Snap zone highlight check
+            GameObject newZone = grabbedSatelliteFilterScript?.CurrentSnapZone;
             if (newZone != null && newZone != currentZone)
             {
                 if (currentZone != null) TogglePlanetHighlight(currentZone, false);
@@ -82,9 +79,14 @@ public class SpaceInteractionXR : MonoBehaviour
                 currentZone = null;
             }
         }
+        else
+        {
+            // No satellite grabbed, make sure glow is off
+            if (PathGlowyLine.Instance != null)
+                PathGlowyLine.Instance.SetGlowActive(false);
+        }
     }
 
-    // Called when the VR hand selects (grabs) an object
     public void OnSatelliteGrabbed(SelectEnterEventArgs args)
     {
         grabbedObject = args.interactableObject.transform.gameObject;
@@ -93,37 +95,33 @@ public class SpaceInteractionXR : MonoBehaviour
         grabbedSatelliteFilterScript = grabbedObject.GetComponent<SatelliteFilter>();
 
         if (grabbedSatelliteOnOrbitScript != null)
-        {
             grabbedSatelliteOnOrbitScript.OnGrabbed();
-        }
 
         grabbedRb.isKinematic = false;
-
 
         SatelliteFlightMover mover = grabbedObject.GetComponent<SatelliteFlightMover>();
         if (mover != null) mover.PauseFlight();
 
         if (PlanetGlowManager.Instance != null)
-        {
             PlanetGlowManager.Instance.SetAllPlanetsGlow(true);
-        }
+        else
+            Debug.LogWarning("PlanetGlowManager instance is NULL!");
     }
 
-    // Called when the VR hand deselects (releases) an object
     public void OnSatelliteReleased(SelectExitEventArgs args)
     {
         if (grabbedObject == null) return;
 
+        if (PathGlowyLine.Instance != null)
+            PathGlowyLine.Instance.SetGlowActive(false);
+
         if (PlanetGlowManager.Instance != null)
-        {
             PlanetGlowManager.Instance.SetAllPlanetsGlow(false);
-        }
 
         grabbedRb.isKinematic = false;
 
         if (currentZone != null)
         {
-            // SNAP TO ORBIT
             OrbitManager manager = currentZone.GetComponentInParent<OrbitManager>();
             if (manager != null)
             {
@@ -140,41 +138,59 @@ public class SpaceInteractionXR : MonoBehaviour
             grabbedSatelliteOnOrbitScript?.OnThrown();
         }
 
-        // Clear references
         grabbedObject = null;
         grabbedRb = null;
         grabbedSatelliteOnOrbitScript = null;
         grabbedSatelliteFilterScript = null;
     }
 
-    // Called when the VR Controller ray points at a planet and triggers it
     public void OnPlanetTriggered(SelectEnterEventArgs args)
     {
         PlanetLoopController planetAudio = args.interactableObject.transform.GetComponent<PlanetLoopController>();
         if (planetAudio != null)
-        {
             planetAudio.TogglePlanetSound();
+    }
+
+    private bool IsSatelliteNearPath(GameObject sat)
+    {
+        SatelliteFlightPath path = FindAnyObjectByType<SatelliteFlightPath>();
+        if (path == null) return false;
+
+        SatelliteOnOrbit orbitScript = sat.GetComponent<SatelliteOnOrbit>();
+        float snapDist = orbitScript != null ? orbitScript.GetSnapDistance() : 0.5f;
+
+        for (int i = 0; i < path.GetWaypointCount() - 1; i++)
+        {
+            Vector3 a = path.GetPosition(i, 0f);
+            Vector3 b = path.GetPosition(i, 1f);
+            Vector3 closest = ClosestPointOnSegment(sat.transform.position, a, b);
+            if (Vector3.Distance(sat.transform.position, closest) <= snapDist)
+                return true;
         }
+        return false;
+    }
+
+    private Vector3 ClosestPointOnSegment(Vector3 point, Vector3 a, Vector3 b)
+    {
+        Vector3 ab = b - a;
+        float t = Vector3.Dot(point - a, ab) / ab.sqrMagnitude;
+        return a + ab * Mathf.Clamp01(t);
     }
 
     #region Snap Zone Logic
     void TogglePlanetHighlight(GameObject zone, bool turnOn)
     {
-        // look to the parent for the visual manager script
         PlanetVisualFeedback visuals = zone.GetComponentInParent<PlanetVisualFeedback>();
         Debug.Log("🎯 Trying to toggle planet highlight" + visuals.gameObject.name);
-
         if (visuals != null)
         {
             if (turnOn)
             {
-                // pass true to inflate
                 visuals.SetDockingInflation(true);
                 visuals.SetGlowIntensity(true);
             }
             else
             {
-                // pass false to deflate
                 visuals.SetDockingInflation(false);
                 visuals.SetGlowIntensity(false);
             }
