@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class OrbitManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class OrbitManager : MonoBehaviour
     public float eccentricity;      // How stretched the ellipse is (0 = circle, 1 = flat line)
     public float orbitalPeriod;     // How many seconds one full orbit takes
     public bool showOrbitPath;      // Toggle the yellow gizmo path in the editor
+    private Dictionary<SatelliteType, GameObject> activeSatellites = new Dictionary<SatelliteType, GameObject>();
 
     // Converts a raw angle into an actual world position on the ellipse
     private Vector3 GetPositionAtAngle(float t)
@@ -45,6 +47,24 @@ public class OrbitManager : MonoBehaviour
         {
             float t = (i / 100f) * 2 * Mathf.PI;
             Gizmos.DrawSphere(GetPositionAtAngle(t), 0.1f);
+        }
+    }
+
+    public bool CanAcceptSatellite(SatelliteType type)
+    {
+        return !activeSatellites.ContainsKey(type) || activeSatellites[type] == null;
+    }
+
+    public void RegisterSatellite(SatelliteType type, GameObject satellite)
+    {
+        activeSatellites[type] = satellite;
+    }
+
+    public void UnregisterSatellite(SatelliteType type)
+    {
+        if (activeSatellites.ContainsKey(type))
+        {
+            activeSatellites.Remove(type);
         }
     }
 }
