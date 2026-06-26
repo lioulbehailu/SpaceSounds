@@ -6132,7 +6132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8108794592199166444, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8559622106701032237, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Enabled
@@ -6700,7 +6700,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976027876}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 497df2b4267b6ad41b9eceec7b2bb0c0, type: 3}
   m_Name: 
@@ -7157,11 +7157,11 @@ MonoBehaviour:
   - {fileID: 1223612781}
   - {fileID: 1222180707}
   satellitePrefabs:
-  - {fileID: 9149732742006226366, guid: c07b522f2993237438149df20c5c6573, type: 3}
-  - {fileID: 7507352975965812443, guid: a914ae9b7d1c2e14b9d90b758c972667, type: 3}
-  - {fileID: 3084013133186123035, guid: f4be535ee2a0c304aa80bc8a0178ee8e, type: 3}
-  - {fileID: 2455172369423143671, guid: 19fb07acf91f8ce4da9d74846ea66b1b, type: 3}
-  - {fileID: 4548317039570678364, guid: 2c4f7965a9ae064478cab064b8e9f8ed, type: 3}
+  - {fileID: 6865215341488624910, guid: 432a370f099dbf743b79fcc083923554, type: 3}
+  - {fileID: 4316043211886828711, guid: 3eee6122a63fc3f44900d010548e6a52, type: 3}
+  - {fileID: 1153693529728533630, guid: 3a2883ff8b8a48f43ac56936a13e8da1, type: 3}
+  - {fileID: 4881042093578234416, guid: beb31e6601318e841ba57d355694f4f9, type: 3}
+  - {fileID: 3668834290358474338, guid: 8d611d2a40e86e74f9c1783a9fc5983f, type: 3}
   spawnIntervalMin: 2
   spawnIntervalMax: 8
   travelSpeed: 0.6
@@ -8248,7 +8248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

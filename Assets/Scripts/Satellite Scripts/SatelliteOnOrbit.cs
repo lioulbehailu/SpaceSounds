@@ -98,14 +98,24 @@ public class SatelliteOnOrbit : MonoBehaviour
 
         if (other.CompareTag("SnapZone"))
         {
-            Debug.Log(gameObject.name + " caught mid-air by SnapZone — snapping to orbit.");
 
             OrbitManager manager = other.GetComponentInParent<OrbitManager>();
-            if (manager != null)
+            SatelliteFeedbackController feedback = GetComponent<SatelliteFeedbackController>();
+            if (feedback == null || manager == null) return;
+
+            // Check if planet already has this type — if so, bounce off
+            if (!manager.CanAcceptSatellite(feedback.satelliteType))
             {
-                orbitPath = manager;
-                SnapToNearestPoint();
+                Debug.Log($"🚫 MID-AIR BLOCKED: {gameObject.name} tried to enter {manager.gameObject.name} but slot is full.");
+                return;
             }
+
+            Debug.Log(gameObject.name + " caught mid-air by SnapZone — snapping to orbit.");
+            orbitPath = manager;
+            SnapToNearestPoint();
+
+
+            manager.RegisterSatellite(feedback.satelliteType, gameObject);
         }
     }
 

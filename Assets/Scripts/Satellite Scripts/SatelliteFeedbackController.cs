@@ -3,15 +3,28 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
+public enum SatelliteType
+{
+    Distortion,
+    Filter,
+    Flanger,
+    Reverb,
+    Tremolo
+}
+
 public class SatelliteFeedbackController : MonoBehaviour
 {
-    #region Public 
-    [Header("Light Renderer")]
-    public Renderer[] lightRenderer;
+    #region Public
+    [Header("Satellite Rules")]
+    public SatelliteType satelliteType;
 
-    [Header("Textures")]
-    public Texture2D lightOffTexture;
-    public Texture2D lightOnTexture;
+    [Header("Antenna LED Meshes")]
+    public GameObject antennaLedOn;        // drag sat_antenna_led here
+    public GameObject antennaLedOff;       // drag sat_antenna_led_off here
+
+    [Header("Point Light")]
+    public Light antennaPointLight;        // drag Point Light here
+    public float lightOnIntensity = 0.04f;
 
     [Header("Blink")]
     public float blinkFrequency = 6f;      // How many times per second the light blinks while grabbed
@@ -31,7 +44,6 @@ public class SatelliteFeedbackController : MonoBehaviour
     #endregion
 
     #region Private
-    private Material[] _mats;
     private float blinkTimer;
     private bool blinkIsOn;
     private XRBaseInteractable grabInteractable;
@@ -42,22 +54,6 @@ public class SatelliteFeedbackController : MonoBehaviour
     void Awake()
     {
         grabInteractable = GetComponent<XRBaseInteractable>();
-
-        if (lightRenderer == null)
-        {
-            Debug.LogError("[SatelliteLightController] No Renderer assigned!", this);
-            enabled = false;
-            return;
-        }
-
-        // Create a private material instance for each light so we don't affect shared assets
-        _mats = new Material[lightRenderer.Length];
-        for (int i = 0; i < lightRenderer.Length; i++)
-        {
-            _mats[i] = new Material(lightRenderer[i].material);
-            lightRenderer[i].material = _mats[i];
-        }
-
         ShowOff();
     }
     #endregion
@@ -65,19 +61,18 @@ public class SatelliteFeedbackController : MonoBehaviour
     #region Update
     void Update()
     {
-        if (currentState == LightState.Grabbed)
+        if (currentState == LightState.Idle) return;
+
+        blinkTimer += Time.deltaTime;
+        float halfPeriod = 0.5f / blinkFrequency;
+        if (blinkTimer >= halfPeriod)
         {
-            // Alternate between on and off at blinkFrequency times per second
-            blinkTimer += Time.deltaTime;
-            float halfPeriod = 0.5f / blinkFrequency;
-            if (blinkTimer >= halfPeriod)
-            {
-                blinkTimer -= halfPeriod;
-                blinkIsOn = !blinkIsOn;
-                if (blinkIsOn) ShowOn();
-                else ShowOff();
-            }
+            blinkTimer -= halfPeriod;
+            blinkIsOn = !blinkIsOn;
+            if (blinkIsOn) ShowOn();
+            else ShowOff();
         }
+
     }
     #endregion
 
@@ -101,6 +96,7 @@ public class SatelliteFeedbackController : MonoBehaviour
         currentState = LightState.Grabbed;
         blinkTimer = 0f;
         blinkIsOn = false;
+
         ShowOff();
     }
 
@@ -127,21 +123,24 @@ public class SatelliteFeedbackController : MonoBehaviour
         // Only enter orbit state if the satellite is not currently held
         if (currentState == LightState.Grabbed) return;
         currentState = LightState.InOrbit;
-        ShowOn();
     }
     #endregion
 
     #region Visuals
     void ShowOn()
     {
-        foreach (var mat in _mats)
-            if (lightOnTexture != null) mat.mainTexture = lightOnTexture;
+        if (antennaLedOn != null) antennaLedOn.SetActive(true);
+        if (antennaLedOff != null) antennaLedOff.SetActive(false);
+        if (antennaPointLight != null)
+            antennaPointLight.intensity = lightOnIntensity;
     }
 
     void ShowOff()
     {
-        foreach (var mat in _mats)
-            if (lightOffTexture != null) mat.mainTexture = lightOffTexture;
+        if (antennaLedOn != null) antennaLedOn.SetActive(false);
+        if (antennaLedOff != null) antennaLedOff.SetActive(true);
+        if (antennaPointLight != null)
+            antennaPointLight.intensity = 0f;
     }
     #endregion
 

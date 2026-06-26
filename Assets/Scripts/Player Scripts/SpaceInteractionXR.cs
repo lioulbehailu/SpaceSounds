@@ -9,6 +9,8 @@ public class SpaceInteractionXR : MonoBehaviour
     private SatelliteOnOrbit grabbedSatelliteOnOrbitScript;
     private SatelliteFilter grabbedSatelliteFilterScript;
     private GameObject currentZone;
+    private SatelliteFeedbackController grabbedFeedbackController;
+
     private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor myInteractor;
     #endregion
 
@@ -68,6 +70,19 @@ public class SpaceInteractionXR : MonoBehaviour
             if (newZone != null && newZone != currentZone)
             {
                 if (currentZone != null) TogglePlanetHighlight(currentZone, false);
+
+                OrbitManager manager = newZone.GetComponentInParent<OrbitManager>();
+                if (manager != null && grabbedFeedbackController != null)
+                {
+                    // Check if the planet's orbit dictionary already contains this specific enum type
+                    if (!manager.CanAcceptSatellite(grabbedFeedbackController.satelliteType))
+                    {
+                        Debug.Log($"🚫 BLOCKED: Planet already contains a {grabbedFeedbackController.satelliteType} satellite.");
+                        currentZone = null; // Deny entry status
+                        return;
+                    }
+                }
+
                 currentZone = newZone;
                 Debug.Log("🎯 SUCCESS: Entered SnapZone!");
                 TogglePlanetHighlight(currentZone, true);
@@ -93,9 +108,17 @@ public class SpaceInteractionXR : MonoBehaviour
         grabbedRb = grabbedObject.GetComponent<Rigidbody>();
         grabbedSatelliteOnOrbitScript = grabbedObject.GetComponent<SatelliteOnOrbit>();
         grabbedSatelliteFilterScript = grabbedObject.GetComponent<SatelliteFilter>();
+        grabbedFeedbackController = grabbedObject.GetComponent<SatelliteFeedbackController>(); // Get the feedback type cache
 
         if (grabbedSatelliteOnOrbitScript != null)
+        {
+            // If the satellite was pulled out of an active orbit path, free its type slot from that planet
+            if (grabbedSatelliteOnOrbitScript.orbitPath != null && grabbedFeedbackController != null)
+            {
+                grabbedSatelliteOnOrbitScript.orbitPath.UnregisterSatellite(grabbedFeedbackController.satelliteType);
+            }
             grabbedSatelliteOnOrbitScript.OnGrabbed();
+        }
 
         grabbedRb.isKinematic = false;
 
@@ -103,7 +126,7 @@ public class SpaceInteractionXR : MonoBehaviour
         if (mover != null) mover.PauseFlight();
 
         if (PlanetGlowManager.Instance != null)
-            PlanetGlowManager.Instance.SetAllPlanetsGlow(true);
+            PlanetGlowManager.Instance.SetSelectivePlanetsGlow(grabbedFeedbackController.satelliteType);
         else
             Debug.LogWarning("PlanetGlowManager instance is NULL!");
     }
@@ -125,10 +148,21 @@ public class SpaceInteractionXR : MonoBehaviour
             OrbitManager manager = currentZone.GetComponentInParent<OrbitManager>();
             if (manager != null)
             {
-                grabbedRb.linearVelocity = Vector3.zero;
-                grabbedRb.isKinematic = true;
-                grabbedSatelliteOnOrbitScript.orbitPath = manager;
-                grabbedSatelliteOnOrbitScript.SnapToNearestPoint();
+                if (grabbedFeedbackController != null && manager.CanAcceptSatellite(grabbedFeedbackController.satelliteType))
+                {
+                    grabbedRb.linearVelocity = Vector3.zero;
+                    grabbedRb.isKinematic = true;
+                    grabbedSatelliteOnOrbitScript.orbitPath = manager;
+                    grabbedSatelliteOnOrbitScript.SnapToNearestPoint();
+
+                    // Lock the slot state on the orbit manager
+                    manager.RegisterSatellite(grabbedFeedbackController.satelliteType, grabbedObject);
+                }
+                else
+                {
+                    // Check what's worth doing there !!!
+                    grabbedSatelliteOnOrbitScript?.OnThrown();
+                }
             }
             TogglePlanetHighlight(currentZone, false);
             currentZone = null;

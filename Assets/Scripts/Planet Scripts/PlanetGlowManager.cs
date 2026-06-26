@@ -51,4 +51,18 @@ public class PlanetGlowManager : MonoBehaviour
             }
         }
     }
+
+    public void SetSelectivePlanetsGlow(SatelliteType satelliteType)
+    {
+        foreach (PlanetGlow planet in activePlanets)
+        {
+            // Each PlanetGlow needs a reference to its OrbitManager to check capacity
+            OrbitManager orbit = planet.GetComponentInParent<OrbitManager>();
+
+            if (orbit == null) continue;
+
+            bool canAccept = orbit.CanAcceptSatellite(satelliteType);
+            planet.ToggleGlow(canAccept);
+        }
+    }
 }
