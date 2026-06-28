@@ -3247,7 +3247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61b7c3c2d8430942b14a39bd48f673d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  satelliteCheatSheetSprite: {fileID: 21300000, guid: be8266a01cb68104e8df40e52c60865e, type: 3}
+  cheatSheetSprite: {fileID: 21300000, guid: 141f831a59b88c94c96f3618c2d749e8, type: 3}
 --- !u!114 &1505493330760266125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3260,7 +3260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5acf3876c386b35449d483c52b937888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  satelliteType: 4
+  satelliteType: 3
   antennaLedOn: {fileID: 4388921779709202662}
   antennaLedOff: {fileID: 4458251877531131190}
   antennaPointLight: {fileID: 1970474776724206647}
@@ -3285,7 +3285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cbe5ca2ce003549af1d7ac0be77228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parameterName: tremolo
+  parameterName: reverb
   transitionSpeed: 2
   leftPlayer: {fileID: 0}
   rightPlayer: {fileID: 0}

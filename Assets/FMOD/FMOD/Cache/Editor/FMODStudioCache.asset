@@ -465,7 +465,7 @@ MonoBehaviour:
   - {fileID: 9017452289170896435}
   - {fileID: 2499611799336189144}
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 15
   Length: 26742
 --- !u!114 &-3547084774024211744
 MonoBehaviour:
@@ -498,7 +498,7 @@ MonoBehaviour:
   - {fileID: -986935911676175526}
   - {fileID: -2480479564109866490}
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 15
   Length: 26683
 --- !u!114 &-3125446832413551565
 MonoBehaviour:
@@ -652,7 +652,7 @@ MonoBehaviour:
   - {fileID: -8119945241353640056}
   - {fileID: -2211917340901928642}
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 15
   Length: 26668
 --- !u!114 &-2491231788850623098
 MonoBehaviour:
@@ -841,7 +841,7 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639176861632241992
+  lastModified: 639182459701627560
   FileSizes: []
   Exists: 1
 --- !u!114 &-986935911676175526
@@ -1040,7 +1040,7 @@ MonoBehaviour:
   - {fileID: 2281921756670909192}
   - {fileID: -3067819859084107336}
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 15
   Length: 26697
 --- !u!114 &11400000
 MonoBehaviour:
@@ -1070,7 +1070,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 182705609542309185}
   cacheVersion: 131859
-  cacheTime: 639176861632271968
+  cacheTime: 639182459701646613
   SerializableEventsDict:
   - key: event:/Planet 3_drums
     index: 0
@@ -1099,7 +1099,7 @@ MonoBehaviour:
   Path: Assets/StreamingAssets/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639176861632271968
+  lastModified: 639182459701646613
   FileSizes:
   - Name: 
     Value: 1240
@@ -1653,7 +1653,7 @@ MonoBehaviour:
   - {fileID: 1540253399988684011}
   - {fileID: 8563768896950321400}
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 15
   Length: 26697
 --- !u!114 &7208218294657193119
 MonoBehaviour:

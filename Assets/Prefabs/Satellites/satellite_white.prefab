@@ -1666,7 +1666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61b7c3c2d8430942b14a39bd48f673d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  satelliteCheatSheetSprite: {fileID: 21300000, guid: 141f831a59b88c94c96f3618c2d749e8, type: 3}
+  cheatSheetSprite: {fileID: 21300000, guid: 9135b899f3b1b794a899a91208ba6133, type: 3}
 --- !u!114 &7288348791208126397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,7 +1679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5acf3876c386b35449d483c52b937888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  satelliteType: 3
+  satelliteType: 1
   antennaLedOn: {fileID: 5601974016449031348}
   antennaLedOff: {fileID: 4595418712242513405}
   antennaPointLight: {fileID: 5123212451707706134}
@@ -1704,7 +1704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cbe5ca2ce003549af1d7ac0be77228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parameterName: reverb
+  parameterName: filter
   transitionSpeed: 2
   leftPlayer: {fileID: 0}
   rightPlayer: {fileID: 0}

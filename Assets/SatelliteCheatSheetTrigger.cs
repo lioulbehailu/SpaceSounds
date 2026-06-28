@@ -1,61 +1,69 @@
+using System;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
+// Passive display component — attach to any XR interactable (satellite or planet).
+// All input handling is done by ControllerCheatSheetHandler on the controllers.
 public class SatelliteCheatSheetTrigger : MonoBehaviour
 {
-    [Header("Satellite Cheat Sheet Graphics Asset")]
-    // Drop your specific satellite's purple sprite child asset here
-    [SerializeField] private Sprite satelliteCheatSheetSprite;
+    [Header("Cheat Sheet")]
+    [SerializeField] private Sprite cheatSheetSprite;
 
-    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable interactable;
+    public static SatelliteCheatSheetTrigger CurrentlyOpen { get; private set; }
+    public bool IsOpen { get; private set; }
 
-    void Awake()
+    public void Toggle(IXRInteractor fromInteractor)
     {
-        interactable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable>();
+        if (IsOpen) Close();
+        else Open(fromInteractor);
     }
 
-    void OnEnable()
+    public void Open(IXRInteractor fromInteractor)
     {
-        if (interactable == null) return;
-        interactable.selectEntered.AddListener(OnPlayerGrabbed);
-        interactable.selectExited.AddListener(OnPlayerReleased);
-    }
+        if (CurrentlyOpen != null && CurrentlyOpen != this)
+            CurrentlyOpen.Close();
 
-    void OnDisable()
-    {
-        if (interactable == null) return;
-        interactable.selectEntered.RemoveListener(OnPlayerGrabbed);
-        interactable.selectExited.RemoveListener(OnPlayerReleased);
-    }
-
-    private void OnPlayerGrabbed(SelectEnterEventArgs args)
-    {
         if (UiManager.Instance == null) return;
-
-        GameObject canvasObj = UiManager.Instance.GetCanvasObject();
-        SmoothFollowUI followScript = UiManager.Instance.GetFollowScript();
-
+        var canvasObj = UiManager.Instance.GetCanvasObject();
+        var followScript = UiManager.Instance.GetFollowScript();
         if (canvasObj == null || followScript == null) return;
 
-        // Inject this satellite's unique pre-made sprite texture into the UI system
-        followScript.UpdateSpriteContent(satelliteCheatSheetSprite);
-
-        Transform interactingHand = args.interactorObject.transform;
-        followScript.controllerTarget = interactingHand;
-
-        Vector3 initialTargetPos = interactingHand.TransformPoint(followScript.localOffset);
-        canvasObj.transform.position = initialTargetPos;
+        followScript.UpdateSpriteContent(cheatSheetSprite);
+        SetFollowTarget(fromInteractor, followScript);
+        canvasObj.transform.position = followScript.controllerTarget.TransformPoint(followScript.localOffset);
         canvasObj.SetActive(true);
+
+        IsOpen = true;
+        CurrentlyOpen = this;
     }
 
-    private void OnPlayerReleased(SelectExitEventArgs args)
+    public void Close()
     {
-        if (UiManager.Instance == null) return;
+        if (!IsOpen) return;
 
-        GameObject canvasObj = UiManager.Instance.GetCanvasObject();
-        SmoothFollowUI followScript = UiManager.Instance.GetFollowScript();
+        if (UiManager.Instance != null)
+        {
+            UiManager.Instance.GetCanvasObject()?.SetActive(false);
 
-        if (canvasObj != null) canvasObj.SetActive(false);
-        if (followScript != null) followScript.controllerTarget = null;
+            var followScript = UiManager.Instance.GetFollowScript();
+            if (followScript != null) followScript.controllerTarget = null;
+        }
+
+        IsOpen = false;
+        if (CurrentlyOpen == this) CurrentlyOpen = null;
+    }
+
+    void OnDisable() => Close();
+
+    private void SetFollowTarget(IXRInteractor interactor, SmoothFollowUI followScript)
+    {
+        bool isLeftHand = interactor is XRBaseInteractor xrInteractor
+            ? xrInteractor.handedness == InteractorHandedness.Left
+            : interactor.transform.name.IndexOf("left", StringComparison.OrdinalIgnoreCase) >= 0;
+
+        Vector3 offset = followScript.localOffset;
+        offset.x = isLeftHand ? Mathf.Abs(offset.x) : -Mathf.Abs(offset.x);
+        followScript.localOffset = offset;
+        followScript.controllerTarget = interactor.transform;
     }
 }

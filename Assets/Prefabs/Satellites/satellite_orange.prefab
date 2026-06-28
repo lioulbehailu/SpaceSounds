@@ -1168,7 +1168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61b7c3c2d8430942b14a39bd48f673d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  satelliteCheatSheetSprite: {fileID: 21300000, guid: b290b4a1a47e83f49a69c7fb12792edb, type: 3}
+  cheatSheetSprite: {fileID: 21300000, guid: be8266a01cb68104e8df40e52c60865e, type: 3}
 --- !u!114 &3385157584520256101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1181,7 +1181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5acf3876c386b35449d483c52b937888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  satelliteType: 0
+  satelliteType: 4
   antennaLedOn: {fileID: 3884194341804841507}
   antennaLedOff: {fileID: 1439545455491784486}
   antennaPointLight: {fileID: 3014282981894777700}
