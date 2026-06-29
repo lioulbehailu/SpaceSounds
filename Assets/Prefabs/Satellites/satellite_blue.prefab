@@ -2444,8 +2444,8 @@ MonoBehaviour:
   antennaLedOn: {fileID: 5856052502371357578}
   antennaLedOff: {fileID: 252686387112585778}
   antennaPointLight: {fileID: 1437474324470756199}
-  lightOnIntensity: 0.04
-  blinkFrequency: 4
+  lightOnIntensity: 0.01
+  blinkFrequency: 2
   leftPlayer: {fileID: 0}
   rightPlayer: {fileID: 0}
   grabAmplitude: 0.8
@@ -2698,7 +2698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61b7c3c2d8430942b14a39bd48f673d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  satelliteCheatSheetSprite: {fileID: 21300000, guid: 902c15ef92d96b648a650cf63bdf4869, type: 3}
+  cheatSheetSprite: {fileID: 0}
 --- !u!1 &6948165789522500965
 GameObject:
   m_ObjectHideFlags: 0

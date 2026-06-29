@@ -23,16 +23,21 @@ public class MagneticRay : MonoBehaviour
     void Start()
     {
         smoothEndPoint = transform.position + transform.forward * maxRayLength;
+        InitLineRenderer();
+    }
 
-        if (lineRenderer != null)
-        {
+    private void InitLineRenderer()
+    {
+        if (lineRenderer == null)
+            lineRenderer = GetComponent<LineRenderer>();
+
+        if (lineRenderer != null && lineRenderer.positionCount != lineResolution)
             lineRenderer.positionCount = lineResolution;
-            lineRenderer.useWorldSpace = true;
-        }
     }
 
     void Update()
     {
+        InitLineRenderer();  // no-op if already set up
         Vector3 origin = transform.position;
         Vector3 forward = transform.forward;
 

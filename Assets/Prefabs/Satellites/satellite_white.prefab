@@ -1683,8 +1683,8 @@ MonoBehaviour:
   antennaLedOn: {fileID: 5601974016449031348}
   antennaLedOff: {fileID: 4595418712242513405}
   antennaPointLight: {fileID: 5123212451707706134}
-  lightOnIntensity: 0.04
-  blinkFrequency: 4
+  lightOnIntensity: 0.01
+  blinkFrequency: 2
   leftPlayer: {fileID: 0}
   rightPlayer: {fileID: 0}
   grabAmplitude: 0.8
