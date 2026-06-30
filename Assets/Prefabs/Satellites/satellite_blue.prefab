@@ -2789,7 +2789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61b7c3c2d8430942b14a39bd48f673d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cheatSheetSprite: {fileID: 0}
+  cheatSheetSprite: {fileID: 21300000, guid: 902c15ef92d96b648a650cf63bdf4869, type: 3}
 --- !u!1 &6948165789522500965
 GameObject:
   m_ObjectHideFlags: 0

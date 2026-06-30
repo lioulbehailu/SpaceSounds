@@ -135,6 +135,8 @@ public class SpaceInteractionXR : MonoBehaviour
     {
         if (grabbedObject == null) return;
 
+        SatelliteCheatSheetTrigger.CurrentlyOpen?.Close();
+
         if (PathGlowyLine.Instance != null)
             PathGlowyLine.Instance.SetGlowActive(false);
 
@@ -183,6 +185,8 @@ public class SpaceInteractionXR : MonoBehaviour
         PlanetLoopController planetAudio = args.interactableObject.transform.GetComponent<PlanetLoopController>();
         if (planetAudio != null)
             planetAudio.TogglePlanetSound();
+
+        SatelliteCheatSheetTrigger.CurrentlyOpen?.Close();
     }
 
     private bool IsSatelliteNearPath(GameObject sat)
