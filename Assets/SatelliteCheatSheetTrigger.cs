@@ -64,6 +64,7 @@ public class SatelliteCheatSheetTrigger : MonoBehaviour
         Vector3 offset = followScript.localOffset;
         offset.x = isLeftHand ? Mathf.Abs(offset.x) : -Mathf.Abs(offset.x);
         followScript.localOffset = offset;
+        followScript.mirrorRotation = isLeftHand;
         followScript.controllerTarget = interactor.transform;
     }
 }
