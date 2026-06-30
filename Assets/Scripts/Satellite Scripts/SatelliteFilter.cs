@@ -22,7 +22,7 @@ public class SatelliteFilter : MonoBehaviour
     #endregion
 
     #region Internal State
-    // Where we want the filter to end up 
+    // Where we want the filter to end up
     private float targetValue = 0f;
     private float currentValue = 0f;
     private StudioEventEmitter activeEmitter;
@@ -88,6 +88,7 @@ public class SatelliteFilter : MonoBehaviour
         {
             CurrentSnapZone = null;
             targetValue = 0f;
+            lightController.OnExitedOrbit();
         }
     }
     #endregion

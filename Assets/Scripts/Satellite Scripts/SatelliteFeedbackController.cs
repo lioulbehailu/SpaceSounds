@@ -19,8 +19,8 @@ public class SatelliteFeedbackController : MonoBehaviour
     public SatelliteType satelliteType;
 
     [Header("Antenna LED Meshes")]
-    public GameObject antennaLedOn;        // drag sat_antenna_led here
-    public GameObject antennaLedOff;       // drag sat_antenna_led_off here
+    public GameObject[] blinkOnComponents;
+    public GameObject[] blinkOffComponents;
 
     [Header("Point Light")]
     public Light antennaPointLight;        // drag Point Light here
@@ -61,7 +61,8 @@ public class SatelliteFeedbackController : MonoBehaviour
     #region Update
     void Update()
     {
-        if (currentState == LightState.Idle) return;
+        // ONLY blink if the current state is explicitly Grabbed.
+        if (currentState != LightState.Grabbed) return;
 
         blinkTimer += Time.deltaTime;
         float halfPeriod = 0.5f / blinkFrequency;
@@ -107,10 +108,11 @@ public class SatelliteFeedbackController : MonoBehaviour
         CancelInvoke(nameof(ResetReleaseFlag));
         Invoke(nameof(ResetReleaseFlag), 0.05f); // 50ms buffer window
 
-        // If released inside an orbit snap zone, orbit state takes priority
-        if (currentState == LightState.InOrbit) return;
-        currentState = LightState.Idle;
-        ShowOff();
+        if (currentState != LightState.InOrbit)
+        {
+            currentState = LightState.Idle;
+            ShowOff();
+        }
     }
 
     private void ResetReleaseFlag()
@@ -122,29 +124,56 @@ public class SatelliteFeedbackController : MonoBehaviour
     {
         // Only enter orbit state if the satellite is not currently held
         if (currentState == LightState.Grabbed) return;
+
         currentState = LightState.InOrbit;
+        ShowOn();
+    }
+
+    public void OnExitedOrbit()
+    {
+        if (currentState == LightState.InOrbit)
+        {
+            currentState = LightState.Idle;
+            ShowOff();
+        }
     }
     #endregion
 
     #region Visuals
     void ShowOn()
     {
-        if (antennaLedOn != null) antennaLedOn.SetActive(true);
-        if (antennaLedOff != null) antennaLedOff.SetActive(false);
+        foreach (var blinkOn in blinkOnComponents)
+        {
+            if (blinkOn != null) blinkOn.SetActive(true);
+        }
+
+        foreach (var blinkOff in blinkOffComponents)
+        {
+            if (blinkOff != null) blinkOff.SetActive(false);
+        }
+
         if (antennaPointLight != null)
             antennaPointLight.intensity = lightOnIntensity;
     }
 
     void ShowOff()
     {
-        if (antennaLedOn != null) antennaLedOn.SetActive(false);
-        if (antennaLedOff != null) antennaLedOff.SetActive(true);
+        foreach (var blinkOn in blinkOnComponents)
+        {
+            if (blinkOn != null) blinkOn.SetActive(false);
+        }
+
+        foreach (var blinkOff in blinkOffComponents)
+        {
+            if (blinkOff != null) blinkOff.SetActive(true);
+        }
+
         if (antennaPointLight != null)
             antennaPointLight.intensity = 0f;
     }
     #endregion
 
-    #region Hover/Grab Verfication
+    #region Hover/Grab Verification
     // Checks if the specified controller player's transform matches the interactor hovering over this object
     private bool IsHoveredByController(HapticImpulsePlayer controllerPlayer)
     {
