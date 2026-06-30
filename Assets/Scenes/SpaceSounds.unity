@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1.2
+  m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
@@ -5706,7 +5706,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.25
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -5768,13 +5768,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434619532}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09249212, y: -0.18458615, z: 0.18142559, w: 0.9614874}
+  m_LocalRotation: {x: 0.12167748, y: -0.020298518, z: 0.16329156, w: 0.9788353}
   m_LocalPosition: {x: 10.782677, y: 6.5, z: -11.328736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 14.172, y: -19.359, z: 18.942}
+  m_LocalEulerAnglesHint: {x: 14.172, y: 0, z: 18.942}
 --- !u!1 &534761113
 GameObject:
   m_ObjectHideFlags: 0
@@ -5853,11 +5853,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerTarget: {fileID: 0}
-  headCamera: {fileID: 0}
-  localOffset: {x: 0.2, y: 0.1, z: 0.3}
+  localOffset: {x: 0.2, y: -0.2, z: 0.1}
   followSpeed: 5
   rotationSpeed: 7
-  deadZoneRadius: 0.05
+  rotationOffset: {x: 30, y: 0, z: 0}
   displayImage: {fileID: 1223882616}
 --- !u!114 &546913454
 MonoBehaviour:
