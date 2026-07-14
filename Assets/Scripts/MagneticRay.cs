@@ -1,120 +1,143 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+using System.Collections.Generic;
 
 public class MagneticRay : MonoBehaviour
 {
-    [Header("Ray Settings")]
+    [Header("Settings")]
     [SerializeField] private float maxRayLength = 0.8f;
-    [SerializeField] private float magnetRadius = 4f;
+    [SerializeField] private float magnetRadius = 0.3f;
     [SerializeField] private float bendSpeed = 8f;
-    [SerializeField] private float coneAngle = 60f;
+    [SerializeField] private float maxBendAngle = 30f;
 
-    [Header("Curve Settings")]
-    [SerializeField] private int lineResolution = 24;
-    [SerializeField] private float curveHeight = 0.25f;
+    [Header("References")]
+    [SerializeField] private Transform rayOriginTransform;
 
-    [Header("Line Renderer — assign the one on THIS gameobject")]
-    [SerializeField] private LineRenderer lineRenderer;
+    // Shared across ALL MagneticRay instances — prevents two rays claiming same target
+    private static HashSet<Transform> claimedTargets = new HashSet<Transform>();
 
     private Transform currentTarget = null;
-    private Vector3 smoothEndPoint;
-    private float smoothCurve = 0f;
+    private Quaternion originalRotation;
+    private bool isHoldingSomething = false;
 
     void Start()
     {
-        smoothEndPoint = transform.position + transform.forward * maxRayLength;
-        InitLineRenderer();
+        if (rayOriginTransform != null)
+            originalRotation = rayOriginTransform.localRotation;
     }
 
-    private void InitLineRenderer()
+    void OnDisable()
     {
-        if (lineRenderer == null)
-            lineRenderer = GetComponent<LineRenderer>();
+        // Release claim when controller is disabled
+        ReleaseClaim();
+    }
 
-        if (lineRenderer != null && lineRenderer.positionCount != lineResolution)
-            lineRenderer.positionCount = lineResolution;
+    // Call this from SpaceInteractionXR when grab starts/ends
+    public void SetHoldingState(bool holding)
+    {
+        isHoldingSomething = holding;
+
+        if (holding)
+        {
+            // Release magnetic claim and reset ray immediately
+            ReleaseClaim();
+            rayOriginTransform.localRotation = originalRotation;
+        }
     }
 
     void Update()
     {
-        InitLineRenderer();  // no-op if already set up
-        Vector3 origin = transform.position;
-        Vector3 forward = transform.forward;
+        if (rayOriginTransform == null) return;
 
-        currentTarget = FindTarget(origin, forward);
+        // STOP all computation while holding a satellite
+        if (isHoldingSomething)
+            return;
 
-        Vector3 desiredEnd = currentTarget != null
-            ? currentTarget.position
-            : origin + forward * maxRayLength;
+        Transform newTarget = FindTarget();
 
-        // Smooth endpoint movement
-        smoothEndPoint = Vector3.Lerp(
-            smoothEndPoint, desiredEnd, Time.deltaTime * bendSpeed);
+        // If our previous target was claimed by someone else, release it
+        if (currentTarget != null && !claimedTargets.Contains(currentTarget))
+            currentTarget = null;
 
-        // Smooth curve animation
-        float desiredCurve = currentTarget != null ? 1f : 0f;
-        smoothCurve = Mathf.Lerp(smoothCurve, desiredCurve, Time.deltaTime * bendSpeed);
-
-        // Update visuals
-        if (lineRenderer != null)
+        // Update claim
+        if (newTarget != currentTarget)
         {
-            DrawBezier(origin, smoothEndPoint, smoothCurve);
+            ReleaseClaim();
+            currentTarget = newTarget;
+
+            if (currentTarget != null)
+                claimedTargets.Add(currentTarget);
         }
-    }
 
-    private void DrawBezier(Vector3 start, Vector3 end, float curveAmount)
-    {
-        Vector3 mid = (start + end) * 0.5f;
-
-        // Control point bends upward relative to the ray direction
-        // so it always arcs naturally regardless of controller orientation
-        Vector3 rayDir = (end - start).normalized;
-        Vector3 perpUp = Vector3.Cross(rayDir, transform.right).normalized;
-        Vector3 controlPoint = mid + perpUp * (curveHeight * curveAmount);
-
-        for (int i = 0; i < lineResolution; i++)
+        if (currentTarget != null)
         {
-            float t = i / (float)(lineResolution - 1);
-            lineRenderer.SetPosition(i, Bezier(start, controlPoint, end, t));
-        }
-    }
+            Vector3 dir = (currentTarget.position - rayOriginTransform.position).normalized;
 
-    private Vector3 Bezier(Vector3 p0, Vector3 p1, Vector3 p2, float t)
-    {
-        float u = 1f - t;
-        return (u * u * p0) + (2f * u * t * p1) + (t * t * p2);
-    }
+            // Check angle between current forward and direction to target
+            float angleToTarget = Vector3.Angle(rayOriginTransform.parent.forward, dir);
 
-    private Transform FindTarget(Vector3 origin, Vector3 direction)
-    {
-        Transform best = null;
-        float bestScore = float.MaxValue;
-
-        // Sample along the full ray length
-        int samples = 6;
-        for (int i = 1; i <= samples; i++)
-        {
-            float t = (float)i / samples;
-            Vector3 point = origin + direction * (maxRayLength * t);
-            Collider[] hits = Physics.OverlapSphere(point, magnetRadius);
-
-            foreach (Collider hit in hits)
+            // Only bend if target is within maxBendAngle of natural forward direction
+            if(angleToTarget <= maxBendAngle)
             {
-                bool valid = hit.CompareTag("Satellite")
-                          || hit.CompareTag("SnapZone");
+                rayOriginTransform.rotation = Quaternion.Slerp(
+                    rayOriginTransform.rotation,
+                    Quaternion.LookRotation(dir),
+                    Time.deltaTime * bendSpeed);
+            }
+            else
+            {
+                // Target exists but is too far off-axis — reset to straight
+                ReleaseClaim();
+                rayOriginTransform.localRotation = Quaternion.Slerp(
+                    rayOriginTransform.localRotation,
+                    originalRotation,
+                    Time.deltaTime * bendSpeed);
+            }
 
-                if (!valid) continue;
+        }
+        else
+        {
+            rayOriginTransform.localRotation = Quaternion.Slerp(
+                rayOriginTransform.localRotation,
+                originalRotation,
+                Time.deltaTime * bendSpeed);
+        }
+    }
 
-                Vector3 toTarget = hit.transform.position - origin;
-                float angle = Vector3.Angle(direction, toTarget);
-                if (angle > coneAngle) continue;
+    private void ReleaseClaim()
+    {
+        if (currentTarget != null)
+        {
+            claimedTargets.Remove(currentTarget);
+            currentTarget = null;
+        }
+    }
 
-                float score = toTarget.magnitude + angle * 0.05f;
-                if (score < bestScore)
-                {
-                    bestScore = score;
-                    best = hit.transform;
-                }
+    private Transform FindTarget()
+    {
+        Vector3 origin = rayOriginTransform.position;
+        Vector3 direction = rayOriginTransform.forward;
+
+        RaycastHit[] hits = Physics.SphereCastAll(
+            origin, magnetRadius, direction, maxRayLength);
+
+        Transform best = null;
+        float bestDist = float.MaxValue;
+
+        foreach (RaycastHit hit in hits)
+        {
+            if (!hit.collider.CompareTag("Satellite")) continue;
+
+            float dist = Vector3.Distance(origin, hit.transform.position);
+            if (dist > maxRayLength) continue;
+
+            // Skip if already claimed by the other controller
+            if (claimedTargets.Contains(hit.transform) && hit.transform != currentTarget)
+                continue;
+
+            if (dist < bestDist)
+            {
+                bestDist = dist;
+                best = hit.transform;
             }
         }
 

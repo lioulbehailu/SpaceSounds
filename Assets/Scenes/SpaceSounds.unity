@@ -313,18 +313,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 128797010}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 497df2b4267b6ad41b9eceec7b2bb0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxRayLength: 0.8
-  magnetRadius: 4
+  magnetRadius: 0.3
   bendSpeed: 8
-  coneAngle: 60
-  lineResolution: 24
-  curveHeight: 0.25
-  lineRenderer: {fileID: 770247671}
+  maxBendAngle: 30
+  rayOriginTransform: {fileID: 1562052795}
 --- !u!1 &146902467
 GameObject:
   m_ObjectHideFlags: 0
@@ -6337,7 +6335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8108794592199166444, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8559622106701032237, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Enabled
@@ -6667,11 +6665,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1412898549}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!120 &770247671 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 1267965613388650355, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
-  m_PrefabInstance: {fileID: 673891348}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &878156633
 GameObject:
   m_ObjectHideFlags: 0
@@ -6930,12 +6923,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxRayLength: 0.8
-  magnetRadius: 1.5
+  magnetRadius: 0.3
   bendSpeed: 8
-  coneAngle: 60
-  lineResolution: 20
-  curveHeight: 0.3
-  lineRenderer: {fileID: 1273173979}
+  maxBendAngle: 30
+  rayOriginTransform: {fileID: 954300214}
 --- !u!114 &976027889 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5967689310316253315, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
@@ -7732,11 +7723,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!120 &1273173979 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 8108794592199166444, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
-  m_PrefabInstance: {fileID: 673891348}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1412898548
 GameObject:
   m_ObjectHideFlags: 0

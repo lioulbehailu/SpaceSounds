@@ -129,6 +129,11 @@ public class SpaceInteractionXR : MonoBehaviour
             PlanetGlowManager.Instance.SetSelectivePlanetsGlow(grabbedFeedbackController.satelliteType);
         else
             Debug.LogWarning("PlanetGlowManager instance is NULL!");
+
+        // Tell THIS controller's MagneticRay to stop computing
+        MagneticRay ray = GetComponentInChildren<MagneticRay>();
+        if (ray != null) ray.SetHoldingState(true);
+
     }
 
     public void OnSatelliteReleased(SelectExitEventArgs args)
@@ -178,6 +183,11 @@ public class SpaceInteractionXR : MonoBehaviour
         grabbedRb = null;
         grabbedSatelliteOnOrbitScript = null;
         grabbedSatelliteFilterScript = null;
+
+        // Reenable satellite tracking by magnetic ray
+        MagneticRay ray = GetComponentInChildren<MagneticRay>();
+        if (ray != null) ray.SetHoldingState(false);
+
     }
 
     public void OnPlanetTriggered(SelectEnterEventArgs args)
