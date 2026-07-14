@@ -1211,7 +1211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cbe5ca2ce003549af1d7ac0be77228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parameterName: distortion
+  parameterName: tremolo
   transitionSpeed: 2
   leftPlayer: {fileID: 0}
   rightPlayer: {fileID: 0}
