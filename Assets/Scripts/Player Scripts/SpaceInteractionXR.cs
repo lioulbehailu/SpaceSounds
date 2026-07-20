@@ -58,12 +58,6 @@ public class SpaceInteractionXR : MonoBehaviour
     {
         if (grabbedObject != null)
         {
-            // Path glow check
-            if (PathGlowyLine.Instance != null)
-            {
-                bool near = IsSatelliteNearPath(grabbedObject);
-                PathGlowyLine.Instance.SetGlowActive(near);
-            }
 
             // Snap zone highlight check
             GameObject newZone = grabbedSatelliteFilterScript?.CurrentSnapZone;
@@ -96,9 +90,6 @@ public class SpaceInteractionXR : MonoBehaviour
         }
         else
         {
-            // No satellite grabbed, make sure glow is off
-            if (PathGlowyLine.Instance != null)
-                PathGlowyLine.Instance.SetGlowActive(false);
         }
     }
 
@@ -141,9 +132,6 @@ public class SpaceInteractionXR : MonoBehaviour
         if (grabbedObject == null) return;
 
         SatelliteCheatSheetTrigger.CurrentlyOpen?.Close();
-
-        if (PathGlowyLine.Instance != null)
-            PathGlowyLine.Instance.SetGlowActive(false);
 
         if (PlanetGlowManager.Instance != null)
             PlanetGlowManager.Instance.SetAllPlanetsGlow(false);
@@ -199,31 +187,6 @@ public class SpaceInteractionXR : MonoBehaviour
         SatelliteCheatSheetTrigger.CurrentlyOpen?.Close();
     }
 
-    private bool IsSatelliteNearPath(GameObject sat)
-    {
-        SatelliteFlightPath path = FindAnyObjectByType<SatelliteFlightPath>();
-        if (path == null) return false;
-
-        SatelliteOnOrbit orbitScript = sat.GetComponent<SatelliteOnOrbit>();
-        float snapDist = orbitScript != null ? orbitScript.GetSnapDistance() : 0.5f;
-
-        for (int i = 0; i < path.GetWaypointCount() - 1; i++)
-        {
-            Vector3 a = path.GetPosition(i, 0f);
-            Vector3 b = path.GetPosition(i, 1f);
-            Vector3 closest = ClosestPointOnSegment(sat.transform.position, a, b);
-            if (Vector3.Distance(sat.transform.position, closest) <= snapDist)
-                return true;
-        }
-        return false;
-    }
-
-    private Vector3 ClosestPointOnSegment(Vector3 point, Vector3 a, Vector3 b)
-    {
-        Vector3 ab = b - a;
-        float t = Vector3.Dot(point - a, ab) / ab.sqrMagnitude;
-        return a + ab * Mathf.Clamp01(t);
-    }
 
     #region Snap Zone Logic
     void TogglePlanetHighlight(GameObject zone, bool turnOn)
