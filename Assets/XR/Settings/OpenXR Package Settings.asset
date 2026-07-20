@@ -177,6 +177,7 @@ MonoBehaviour:
   - {fileID: 1329159122459158455}
   - {fileID: -1424249093322192300}
   - {fileID: -3668234972872415228}
+  - {fileID: -2587261772523359657}
   - {fileID: 6737881894161486683}
   - {fileID: -9164221020397666724}
   - {fileID: -2821828489777179952}
@@ -682,7 +683,6 @@ MonoBehaviour:
   m_Name: FMODHapticsFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 0
-  <failedInitialization>k__BackingField: 0
   nameUi: 'FMOD: Haptics'
   version: 1.0.0
   featureIdInternal: com.fmod.feature.haptic

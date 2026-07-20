@@ -5224,6 +5224,7 @@ MonoBehaviour:
   fadeSpeed: 10
   glowColor: {r: 1, g: 1, b: 1, a: 0.5882353}
   glowWidth: 0.007
+  proximityDistance: 0.5
 --- !u!1 &171502289
 GameObject:
   m_ObjectHideFlags: 0
@@ -8766,7 +8767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

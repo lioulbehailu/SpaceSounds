@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SatelliteOnOrbit : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class SatelliteOnOrbit : MonoBehaviour
 
     private float reentryCheckTimer = 0f;
 
+    // Static set — any satellite grabbed by any controller registers here
+    public static HashSet<SatelliteOnOrbit> CurrentlyHeld = new HashSet<SatelliteOnOrbit>();
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -23,6 +27,7 @@ public class SatelliteOnOrbit : MonoBehaviour
     {
         isThrown = false; // Stop tracking as a thrown projectile
         orbitPath = null; // Clear old orbits while holding it
+        CurrentlyHeld.Add(this);
     }
 
     // Called by SpaceInteractionXR when satellite is released/tossed
@@ -31,12 +36,17 @@ public class SatelliteOnOrbit : MonoBehaviour
         isThrown = true;
         orbitPath = null;
         reentryCheckTimer = 0f;
+        CurrentlyHeld.Remove(this);
     }
+
+    public bool IsThrown() => isThrown;
 
     #region snap current satellite to closest point in orbit
     public void SnapToNearestPoint()
     {
         if (orbitPath == null) return;
+
+        CurrentlyHeld.Remove(this);
 
         isThrown = false; // Successfully docked! Stop tracking as a thrown projectile
 
