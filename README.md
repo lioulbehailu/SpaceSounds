@@ -32,7 +32,8 @@ Once the git repository is cloned and opened in Unity, Unity installs required p
 https://www.meta.com/quest/setup/
 ```
 2. Connect the headset vis USB3
-3. Hit Play in Unity
+3. Navigate to the Settings and select the "Link to PC" option using a USB
+4. Hit Play in Unity
 
 ### Running without a headset
 1. Enable the XR Device Simulator in the project hierarchy
