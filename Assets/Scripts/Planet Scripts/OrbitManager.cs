@@ -67,4 +67,16 @@ public class OrbitManager : MonoBehaviour
             activeSatellites.Remove(type);
         }
     }
+
+    public void ClearAllSatellites()
+    {
+        foreach (var kvp in activeSatellites)
+        {
+            if (kvp.Value != null)
+            {
+                Destroy(kvp.Value);
+            }
+        }
+        activeSatellites.Clear();
+    }
 }

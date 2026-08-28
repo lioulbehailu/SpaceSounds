@@ -3,13 +3,12 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
-// Attach to SoundtrackExportManager GameObject
 public class SoundtrackUploader : MonoBehaviour
 {
     public static SoundtrackUploader Instance;
 
     [Header("Server Configuration")]
-    [Tooltip("Your web backend endpoint URL. Leave blank when testing locally on Quest.")]
+    [Tooltip("Your web backend endpoint URL. Leave blank when testing locally.")]
     public string serverUploadUrl = "";
 
     void Awake()
@@ -27,17 +26,15 @@ public class SoundtrackUploader : MonoBehaviour
             yield break;
         }
 
-        // Test mode: gracefully skips HTTP POST if no URL is provided yet
         if (string.IsNullOrEmpty(serverUploadUrl))
         {
-            Debug.Log($"[Test Mode] Audio exported locally to: {filePath}. (Set serverUploadUrl when backend is ready).");
+            Debug.Log($"[Test Mode] Audio exported locally to: {filePath}");
             yield break;
         }
 
         byte[] fileData = File.ReadAllBytes(filePath);
 
         WWWForm form = new WWWForm();
-        // Updated to target .wav filename and audio/wav MIME type
         form.AddBinaryData("file", fileData, "latest_track.wav", "audio/wav");
 
         using (UnityWebRequest www = UnityWebRequest.Post(serverUploadUrl, form))

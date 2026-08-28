@@ -1,46 +1,41 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI; // Added for Image reference
+using UnityEngine.UI;
 using TMPro;
 
-// Attach to SoundtrackExportManager GameObject
+#if UNITY_EDITOR
+using UnityEngine.InputSystem;
+#endif
+
 public class SoundtrackExportTrigger : MonoBehaviour
 {
     [Header("UI Feedback")]
-    [Tooltip("Assign your TextMeshPro component for in-VR export messages")]
     public TextMeshProUGUI statusText;
-
-    [Tooltip("Assign the background Image component here")]
     public Image backgroundImage;
 
     private float holdTimer = 0f;
     private const float REQUIRED_HOLD_TIME = 3.0f;
-    private bool isExporting = false;
+
+    public static bool IsExporting { get; private set; } = false;
 
     void Start()
     {
-        // Keep UI text and background invisible by default when idle
         SetUIVisibility(false);
     }
 
     void Update()
     {
-        if (isExporting) return;
+        if (IsExporting) return;
 
-        // Check Left Controller: X button (Button.Three) + Primary Index Trigger (>80%)
-        bool leftPressed = OVRInput.Get(OVRInput.Button.Three) &&
-                            OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch) > 0.8f;
+        bool inputActive = CheckExportInputs();
 
-        // Check Right Controller: A button (Button.One) + Primary Index Trigger (>80%)
-        bool rightPressed = OVRInput.Get(OVRInput.Button.One) &&
-                             OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.RTouch) > 0.8f;
-
-        if (leftPressed || rightPressed)
+        if (inputActive)
         {
             holdTimer += Time.deltaTime;
 
             if (holdTimer >= REQUIRED_HOLD_TIME)
             {
+                holdTimer = 0f;
                 StartCoroutine(ExportSequence());
             }
         }
@@ -50,27 +45,50 @@ public class SoundtrackExportTrigger : MonoBehaviour
         }
     }
 
+    private bool CheckExportInputs()
+    {
+#if UNITY_EDITOR
+        if (Keyboard.current != null)
+        {
+            if (Keyboard.current.digit0Key.isPressed || Keyboard.current.numpad0Key.isPressed)
+            {
+                return true;
+            }
+        }
+#endif
+
+        bool leftFaceButton = OVRInput.Get(OVRInput.Button.Three) || OVRInput.Get(OVRInput.Button.Four);
+        bool leftTrigger = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.LTouch) > 0.7f ||
+                           OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) > 0.7f;
+
+        bool rightFaceButton = OVRInput.Get(OVRInput.Button.One) || OVRInput.Get(OVRInput.Button.Two);
+        bool rightTrigger = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, OVRInput.Controller.RTouch) > 0.7f ||
+                            OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) > 0.7f;
+
+        return (leftFaceButton && leftTrigger) || (rightFaceButton && rightTrigger);
+    }
+
     private IEnumerator ExportSequence()
     {
-        isExporting = true;
+        IsExporting = true;
+        UpdateUI("Recording soundtrack...", true);
 
-        // Show UI with progress message
-        UpdateUI("Exporting sound...", true);
+        if (FMODRecorder.Instance != null)
+        {
+            yield return StartCoroutine(FMODRecorder.Instance.InstantExportOneLoopRoutine());
+        }
 
-        // Step 1: Render 1 loop offline from 00:00 to end using current mix state
-        yield return StartCoroutine(FMODRecorder.Instance.InstantExportOneLoopRoutine());
+        if (SoundtrackUploader.Instance != null)
+        {
+            UpdateUI("Uploading track...", true);
+            yield return StartCoroutine(SoundtrackUploader.Instance.UploadLatestTrackRoutine());
+        }
 
-        // Step 2: Upload MP3 to server endpoint
-        yield return StartCoroutine(SoundtrackUploader.Instance.UploadLatestTrackRoutine());
-
-        // Step 3: Display success message for 5 seconds
         UpdateUI("Export Successful!", true);
+        yield return new WaitForSeconds(4f);
 
-        yield return new WaitForSeconds(5f);
-
-        // Reset UI text and hide background image
         SetUIVisibility(false);
-        isExporting = false;
+        IsExporting = false;
     }
 
     private void UpdateUI(string message, bool visible)

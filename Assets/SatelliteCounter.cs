@@ -22,4 +22,10 @@ public class SnapZoneCounter : MonoBehaviour
             Debug.Log($"[SnapZone] Satellite left. Count: {satelliteCount}");
         }
     }
+
+    public void ForceReset()
+    {
+        satelliteCount = 0;
+        Debug.Log("[SnapZone] Count manually reset to 0.");
+    }
 }

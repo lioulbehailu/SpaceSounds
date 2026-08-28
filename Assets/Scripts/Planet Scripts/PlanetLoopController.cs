@@ -179,4 +179,25 @@ public class PlanetLoopController : MonoBehaviour
         return false;
     }
     #endregion
+
+    public void ResetToLoop0()
+    {
+        currentState = 0;
+
+        if (emitter != null)
+        {
+            emitter.SetParameter("PlanetState", 0);
+
+            // Explicitly clear any active satellite effect parameters on this planet's FMOD event
+            emitter.SetParameter("Flanger", 0f);
+            emitter.SetParameter("Filter", 0f);
+            emitter.SetParameter("Distortion", 0f);
+            emitter.SetParameter("Reverb", 0f);
+            emitter.SetParameter("Tremolo", 0f);
+
+            Debug.Log($"{gameObject.name} audio state and effect filters reset to 0.");
+        }
+
+        ApplyVisualState(0);
+    }
 }
